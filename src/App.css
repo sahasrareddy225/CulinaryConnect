@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #f8f9fa;
   min-height: 100vh;
   line-height: 1.6;
   color: #333;
@@ -15,33 +15,37 @@ body {
 
 /* Advanced Gradient Theme */
 .gradient-primary {
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(90deg, #FF512F, #DD2476);
 }
 
 .gradient-secondary {
-  background: linear-gradient(90deg, #a8edea, #fed6e3);
+  background: linear-gradient(90deg, #36D1DC, #5B86E5);
 }
 
 .gradient-tertiary {
-  background: linear-gradient(90deg, #ffecd2, #fcb69f);
+  background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+}
+
+.gradient-quaternary {
+  background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
 .gradient-text-primary {
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(90deg, #FF512F, #DD2476);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-text-secondary {
-  background: linear-gradient(90deg, #a8edea, #fed6e3);
+  background: linear-gradient(90deg, #36D1DC, #5B86E5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-text-tertiary {
-  background: linear-gradient(90deg, #ffecd2, #fcb69f);
+  background: linear-gradient(90deg, #8E2DE2, #4A00E0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

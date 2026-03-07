@@ -26,11 +26,11 @@ const Home = () => {
                 Join the ultimate culinary community where food lovers, chefs, and creators come together to share their passion for amazing recipes.
               </p>
               <div className="hero-buttons">
-                <Link to="/register" className="btn btn-gradient hero-btn">
+                <Link to="/login" className="btn btn-gradient hero-btn">
                   Explore Recipes
                 </Link>
-                <Link to="/register" className="btn btn-white hero-btn-secondary">
-                  Join as Chef
+                <Link to="/login" className="btn btn-white hero-btn-secondary">
+                  Start Cooking
                 </Link>
               </div>
             </div>

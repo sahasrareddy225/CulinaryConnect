@@ -1,0 +1,125 @@
+/* Recipe Feed Styles */
+.recipe-feed {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feed-header {
+  margin-bottom: 40px;
+}
+
+.feed-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 30px 0;
+  background: linear-gradient(90deg, #FF512F, #DD2476);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.feed-controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.feed-search {
+  width: 100%;
+  padding: 15px 50px 15px 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.feed-search:focus {
+  outline: none;
+  border-color: #FF512F;
+  box-shadow: 0 0 20px rgba(255, 81, 47, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #999;
+}
+
+.filter-dropdown {
+  padding: 15px 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 25px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #FF512F;
+  box-shadow: 0 0 20px rgba(255, 81, 47, 0.2);
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 18px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .recipe-feed {
+    padding: 20px;
+  }
+  
+  .feed-title {
+    font-size: 24px;
+  }
+  
+  .feed-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    max-width: none;
+  }
+  
+  .recipes-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

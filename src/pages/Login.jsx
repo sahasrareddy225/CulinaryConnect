@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RoleSelector from '../components/RoleSelector';
+import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 
 const Login = () => {
@@ -9,6 +10,9 @@ const Login = () => {
     email: '',
     password: ''
   });
+  
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -19,7 +23,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { ...formData, role: selectedRole });
+    
+    // Create user object with role information
+    const userData = {
+      id: Math.random().toString(36).substr(2, 9),
+      email: formData.email,
+      role: selectedRole,
+      name: selectedRole === 'user' ? 'Food Lover' : selectedRole === 'chef' ? 'Chef' : 'Admin',
+      avatar: `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000000)}?w=150&h=150&fit=crop&crop=face`
+    };
+    
+    // TODO: replace with API call later
+    console.log('Login attempt:', userData);
+    
+    // Login user and redirect
+    login(userData);
+    navigate('/dashboard');
   };
 
   const getButtonClass = () => {

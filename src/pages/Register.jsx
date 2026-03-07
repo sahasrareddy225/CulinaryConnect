@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RoleSelector from '../components/RoleSelector';
+import { useAuth } from '../contexts/AuthContext';
 import './Register.css';
 
 const Register = () => {
@@ -11,6 +12,9 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   });
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -27,7 +31,22 @@ const Register = () => {
       return;
     }
     
-    console.log('Registration attempt:', { ...formData, role: selectedRole });
+    // Create user object with role information
+    const userData = {
+      id: Math.random().toString(36).substr(2, 9),
+      username: formData.username,
+      email: formData.email,
+      role: selectedRole,
+      name: formData.username,
+      avatar: `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000000)}?w=150&h=150&fit=crop&crop=face`
+    };
+    
+    // TODO: replace with API call later
+    console.log('Registration attempt:', userData);
+    
+    // Login user and redirect
+    login(userData);
+    navigate('/dashboard');
   };
 
   const getButtonClass = () => {
