@@ -1,4 +1,4 @@
-# 🍳 Recipez — Full-Stack Recipe App
+# 🍳 Culinary Connect — Full-Stack Recipe App
 
 ## Frontend Architecture
 
