@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Culinary Connect — Discover. Cook. Share.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --red: #FF3B3B;
+  --orange: #FF6B35;
+  --pink: #FF4D8D;
+  --deep-red: #C0392B;
+  --light-orange: #FFB347;
+  --grad: linear-gradient(135deg, #FF3B3B 0%, #FF6B35 50%, #FF4D8D 100%);
+  --grad2: linear-gradient(135deg, #FF6B35, #FF3B3B);
+  --bg: #0E0B0B;
+  --bg2: #1A1212;
+  --bg3: #231818;
+  --card: #1E1414;
+  --card2: #261B1B;
+  --border: rgba(255,107,53,0.15);
+  --border2: rgba(255,59,59,0.25);
+  --text: #F5F0EE;
+  --text2: #C8B8B4;
+  --text3: #8A7470;
+  --shadow: 0 8px 40px rgba(255,59,59,0.12);
+  --shadow2: 0 20px 60px rgba(255,107,53,0.2);
+  --radius: 16px;
+  --radius2: 24px;
+  --font: 'Poppins', sans-serif;
+  --font2: 'Montserrat', sans-serif;
+  --nav-h: 72px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+  --bg: #FFF9F7;
+  --bg2: #FFF1EC;
+  --bg3: #FDE8DF;
+  --card: #FFFFFF;
+  --card2: #FFF5F0;
+  --border: rgba(255,107,53,0.2);
+  --border2: rgba(255,59,59,0.3);
+  --text: #1A0A0A;
+  --text2: #5C3030;
+  --text3: #9B6B6B;
+  --shadow: 0 8px 40px rgba(255,59,59,0.08);
+  --shadow2: 0 20px 60px rgba(255,107,53,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);transition:background 0.3s,color 0.3s;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--font);cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:var(--font)}
+img{max-width:100%;object-fit:cover}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px}
+.hide{display:none!important}
+
+/* ─── NAVBAR ─── */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  background:rgba(14,11,11,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 clamp(1rem,4vw,2.5rem);
+  gap:1.5rem;
+}
+[data-theme="light"] .navbar{background:rgba(255,249,247,0.9)}
+.nav-brand{font-family:var(--font2);font-size:1.6rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
+.nav-links{display:flex;gap:0.25rem;flex:1;justify-content:center}
+.nav-links a{padding:0.5rem 1rem;border-radius:10px;font-size:0.875rem;font-weight:500;color:var(--text2);transition:var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--orange);background:rgba(255,107,53,0.1)}
+.nav-actions{display:flex;align-items:center;gap:0.75rem;margin-left:auto}
+.nav-search-btn,.theme-btn,.notif-btn{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--card2);border:1px solid var(--border);color:var(--text2);font-size:1.1rem;transition:var(--transition)}
+.nav-search-btn:hover,.theme-btn:hover,.notif-btn:hover{background:var(--orange);color:white;border-color:var(--orange)}
+.nav-avatar{width:40px;height:40px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid var(--orange);position:relative}
+.btn-primary{background:var(--grad);color:white;border:none;padding:0.6rem 1.5rem;border-radius:12px;font-weight:600;font-size:0.875rem;transition:var(--transition);white-space:nowrap}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+.btn-outline{background:transparent;color:var(--orange);border:1.5px solid var(--orange);padding:0.6rem 1.5rem;border-radius:12px;font-weight:600;font-size:0.875rem;transition:var(--transition)}
+.btn-outline:hover{background:var(--orange);color:white;transform:translateY(-2px)}
+.hamburger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;background:var(--card2);border:1px solid var(--border);border-radius:10px}
+.hamburger span{width:20px;height:2px;background:var(--text);border-radius:2px;transition:var(--transition)}
+
+/* ─── MOBILE NAV ─── */
+.mobile-nav{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:1rem 1.5rem;flex-direction:column;gap:0.5rem;
+}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:0.75rem 1rem;border-radius:10px;font-size:0.95rem;font-weight:500;color:var(--text2);transition:var(--transition);display:flex;align-items:center;gap:0.75rem}
+.mobile-nav a:hover{background:rgba(255,107,53,0.1);color:var(--orange)}
+
+/* ─── MAIN LAYOUT ─── */
+.page{min-height:100vh;padding-top:var(--nav-h)}
+.container{max-width:1280px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:calc(100vh - var(--nav-h));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255,107,53,0.15) 0%, transparent 70%),var(--bg);
+}
+.hero-content{text-align:center;max-width:800px;padding:2rem 1rem;z-index:1;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);border-radius:50px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:600;color:var(--orange);margin-bottom:1.5rem;animation:fadeUp 0.6s ease both}
+.hero h1{font-family:var(--font2);font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem;animation:fadeUp 0.6s 0.1s ease both}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(1rem,2.5vw,1.25rem);color:var(--text2);max-width:560px;margin:0 auto 2.5rem;animation:fadeUp 0.6s 0.2s ease both}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.6s 0.3s ease both}
+.hero-stats{display:flex;gap:2rem;justify-content:center;margin-top:3rem;animation:fadeUp 0.6s 0.4s ease both;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-num{font-size:1.75rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:0.8rem;color:var(--text3);font-weight:500}
+.hero-bg-circles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-bg-circles div{position:absolute;border-radius:50%;opacity:0.06}
+.circle1{width:500px;height:500px;background:var(--red);top:-200px;right:-100px;animation:float 8s ease-in-out infinite}
+.circle2{width:300px;height:300px;background:var(--pink);bottom:-100px;left:-50px;animation:float 10s ease-in-out infinite reverse}
+.circle3{width:200px;height:200px;background:var(--orange);top:30%;left:10%;animation:float 6s ease-in-out infinite 2s}
+
+/* ─── SEARCH BAR ─── */
+.search-wrap{position:relative;max-width:600px;margin:0 auto 2.5rem;animation:fadeUp 0.6s 0.25s ease both}
+.search-input{width:100%;padding:1rem 1.5rem;padding-right:3.5rem;border-radius:16px;border:1.5px solid var(--border2);background:var(--card);color:var(--text);font-size:1rem;outline:none;transition:var(--transition)}
+.search-input:focus{border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,107,53,0.1)}
+.search-btn{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:var(--grad);border:none;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:1rem;cursor:pointer;transition:var(--transition)}
+.search-btn:hover{transform:translateY(-50%) scale(1.1)}
+.search-suggestions{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;z-index:100;animation:fadeUp 0.2s ease}
+.suggestion-item{padding:0.75rem 1.25rem;cursor:pointer;display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;transition:var(--transition)}
+.suggestion-item:hover{background:rgba(255,107,53,0.08);color:var(--orange)}
+
+/* ─── SECTION STYLES ─── */
+.section{padding:5rem 0}
+.section-header{margin-bottom:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.section-title{font-family:var(--font2);font-size:clamp(1.5rem,3vw,2rem);font-weight:800}
+.section-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-subtitle{font-size:0.9rem;color:var(--text3);margin-top:0.25rem}
+.view-all{font-size:0.875rem;font-weight:600;color:var(--orange);display:flex;align-items:center;gap:0.25rem;white-space:nowrap;transition:var(--transition)}
+.view-all:hover{gap:0.5rem}
+
+/* ─── RECIPE CARD ─── */
+.recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.recipe-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;transition:var(--transition);cursor:pointer;position:relative}
+.recipe-card:hover{transform:translateY(-6px);box-shadow:var(--shadow2);border-color:var(--border2)}
+.recipe-card-img{height:200px;width:100%;object-fit:cover;transition:transform 0.4s ease}
+.recipe-card:hover .recipe-card-img{transform:scale(1.05)}
+.recipe-card-img-wrap{height:200px;overflow:hidden;position:relative}
+.recipe-badge{position:absolute;top:12px;left:12px;background:var(--grad);color:white;font-size:0.7rem;font-weight:700;padding:0.3rem 0.75rem;border-radius:8px;z-index:1}
+.recipe-card-body{padding:1.25rem}
+.recipe-card-meta{display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--text3);margin-bottom:0.5rem}
+.recipe-card-title{font-size:1rem;font-weight:700;margin-bottom:0.5rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.recipe-card-chef{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--text2);margin-bottom:1rem}
+.chef-avatar{width:24px;height:24px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:white;flex-shrink:0}
+.recipe-card-footer{display:flex;align-items:center;justify-content:space-between}
+.recipe-actions{display:flex;gap:0.5rem}
+.icon-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:var(--transition);cursor:pointer;color:var(--text3)}
+.icon-btn:hover,.icon-btn.active{background:rgba(255,59,59,0.1);border-color:rgba(255,59,59,0.3);color:var(--red)}
+.stars{display:flex;gap:2px;font-size:0.75rem}
+.star{color:var(--light-orange)}
+.star.empty{color:var(--text3)}
+.time-tag{display:flex;align-items:center;gap:0.3rem;font-size:0.75rem;color:var(--text3)}
+
+/* ─── TRENDING CAROUSEL ─── */
+.carousel-wrap{position:relative}
+.carousel-track{display:flex;gap:1.5rem;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding:0.5rem 0 1rem}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-card{min-width:320px;flex-shrink:0}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--card);border:1.5px solid var(--border2);color:var(--text);font-size:1.2rem;display:flex;align-items:center;justify-content:center;z-index:10;transition:var(--transition);cursor:pointer}
+.carousel-btn:hover{background:var(--orange);border-color:var(--orange);color:white}
+.carousel-btn.prev{left:-22px}
+.carousel-btn.next{right:-22px}
+
+/* ─── CATEGORY GRID ─── */
+.category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1rem}
+.category-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:var(--transition)}
+.category-card:hover{border-color:var(--orange);transform:translateY(-4px);background:rgba(255,107,53,0.05)}
+.category-card:hover .cat-icon{transform:scale(1.15)}
+.cat-icon{font-size:2rem;display:block;margin-bottom:0.75rem;transition:transform 0.3s ease}
+.cat-name{font-size:0.85rem;font-weight:600;color:var(--text2)}
+
+/* ─── CHEF CARDS ─── */
+.chef-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem}
+.chef-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden}
+.chef-card::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:var(--transition)}
+.chef-card:hover{transform:translateY(-6px);box-shadow:var(--shadow2)}
+.chef-card:hover::before{opacity:0.03}
+.chef-avatar-lg{width:72px;height:72px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:white;margin:0 auto 1rem;border:3px solid var(--border2)}
+.chef-name{font-size:1rem;font-weight:700;margin-bottom:0.25rem}
+.chef-specialty{font-size:0.8rem;color:var(--text3);margin-bottom:0.75rem}
+.chef-stats{display:flex;justify-content:center;gap:1.5rem;font-size:0.75rem;color:var(--text2)}
+.follow-btn{margin-top:1rem;width:100%;background:var(--grad);color:white;border:none;padding:0.5rem;border-radius:10px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+.follow-btn:hover{transform:scale(1.03);box-shadow:var(--shadow)}
+.follow-btn.following{background:transparent;border:1.5px solid var(--orange);color:var(--orange)}
+
+/* ─── LEADERBOARD ─── */
+.leaderboard-list{display:flex;flex-direction:column;gap:0.75rem}
+.lb-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;transition:var(--transition)}
+.lb-item:hover{border-color:var(--border2);transform:translateX(4px)}
+.lb-rank{font-family:var(--font2);font-size:1.25rem;font-weight:900;min-width:32px;text-align:center}
+.lb-rank.gold{color:#FFD700}
+.lb-rank.silver{color:#C0C0C0}
+.lb-rank.bronze{color:#CD7F32}
+.lb-info{flex:1}
+.lb-name{font-weight:700;font-size:0.9rem}
+.lb-pts{font-size:0.75rem;color:var(--text3)}
+.lb-badge{font-size:1.25rem}
+
+/* ─── FILTER PANEL ─── */
+.filter-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:sticky;top:calc(var(--nav-h) + 1rem)}
+.filter-group{margin-bottom:1.5rem}
+.filter-group:last-child{margin-bottom:0}
+.filter-label{font-size:0.85rem;font-weight:700;color:var(--text2);margin-bottom:0.75rem;display:block;text-transform:uppercase;letter-spacing:0.05em}
+.filter-options{display:flex;flex-wrap:wrap;gap:0.5rem}
+.filter-chip{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:0.35rem 0.75rem;font-size:0.8rem;font-weight:500;cursor:pointer;transition:var(--transition);color:var(--text2)}
+.filter-chip:hover,.filter-chip.active{background:rgba(255,107,53,0.12);border-color:var(--orange);color:var(--orange)}
+.range-input{width:100%;accent-color:var(--orange)}
+
+/* ─── RECIPE DETAIL ─── */
+.recipe-hero{height:50vh;min-height:320px;position:relative;overflow:hidden}
+.recipe-hero-img{width:100%;height:100%;object-fit:cover}
+.recipe-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(14,11,11,0.85) 0%, transparent 60%)}
+.recipe-hero-content{position:absolute;bottom:2rem;left:0;right:0;padding:0 clamp(1rem,4vw,2.5rem)}
+.recipe-hero-title{font-family:var(--font2);font-size:clamp(1.5rem,4vw,3rem);font-weight:900;color:white;margin-bottom:0.5rem}
+.recipe-detail-layout{display:grid;grid-template-columns:1fr 340px;gap:2.5rem;margin-top:2rem}
+.ingredients-list{list-style:none}
+.ingredients-list li{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.9rem}
+.ingredients-list li::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--grad);flex-shrink:0}
+.steps-list{list-style:none;display:flex;flex-direction:column;gap:1.5rem}
+.step-item{display:flex;gap:1.25rem}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;color:white;flex-shrink:0;margin-top:2px}
+.step-content{flex:1}
+.step-title{font-weight:700;margin-bottom:0.4rem}
+.step-desc{font-size:0.9rem;color:var(--text2);line-height:1.7}
+.recipe-sidebar{position:sticky;top:calc(var(--nav-h) + 1rem)}
+.sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;margin-bottom:1.5rem}
+.sidebar-title{font-weight:700;margin-bottom:1rem;font-size:0.95rem}
+.rating-stars{display:flex;gap:0.5rem;font-size:1.5rem;cursor:pointer}
+.comments-section{margin-top:3rem}
+.comment-input-wrap{display:flex;gap:1rem;margin-bottom:2rem}
+.comment-input{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:0.75rem 1.25rem;color:var(--text);font-size:0.9rem;resize:none;outline:none;transition:var(--transition)}
+.comment-input:focus{border-color:var(--orange)}
+.comment-item{display:flex;gap:1rem;margin-bottom:1.5rem}
+.comment-body{flex:1;background:var(--card2);border-radius:14px;padding:1rem;position:relative}
+.comment-author{font-weight:600;font-size:0.85rem;margin-bottom:0.3rem}
+.comment-text{font-size:0.875rem;color:var(--text2);line-height:1.6}
+.comment-time{font-size:0.75rem;color:var(--text3);margin-top:0.5rem}
+
+/* ─── FORM STYLES ─── */
+.form-group{margin-bottom:1.5rem}
+.form-label{display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem;color:var(--text2)}
+.form-input{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:0.75rem 1.25rem;color:var(--text);font-size:0.95rem;outline:none;transition:var(--transition)}
+.form-input:focus{border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,107,53,0.08)}
+.form-input::placeholder{color:var(--text3)}
+.form-textarea{min-height:120px;resize:vertical}
+.form-error{font-size:0.8rem;color:var(--red);margin-top:0.4rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.ingredient-row{display:flex;gap:0.75rem;align-items:center;margin-bottom:0.75rem}
+.ingredient-row input{flex:1}
+.remove-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,59,59,0.1);border:1px solid rgba(255,59,59,0.2);color:var(--red);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:var(--transition)}
+.remove-btn:hover{background:rgba(255,59,59,0.2)}
+.add-btn{background:rgba(255,107,53,0.1);border:1.5px dashed var(--orange);color:var(--orange);width:100%;padding:0.6rem;border-radius:10px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+.add-btn:hover{background:rgba(255,107,53,0.2)}
+.image-upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:3rem 2rem;text-align:center;cursor:pointer;transition:var(--transition);background:var(--card2)}
+.image-upload-zone:hover{border-color:var(--orange);background:rgba(255,107,53,0.04)}
+.upload-icon{font-size:3rem;margin-bottom:1rem;opacity:0.5}
+.image-preview{width:100%;height:200px;object-fit:cover;border-radius:var(--radius);margin-top:1rem}
+
+/* ─── AUTH PAGES ─── */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,107,53,0.12) 0%, transparent 70%),var(--bg)}
+.auth-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius2);padding:clamp(2rem,5vw,3rem);width:100%;max-width:460px}
+.auth-logo{font-family:var(--font2);font-size:2rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:0.5rem}
+.auth-subtitle{text-align:center;color:var(--text3);font-size:0.9rem;margin-bottom:2rem}
+.auth-divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:var(--text3);font-size:0.85rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.google-btn{width:100%;padding:0.75rem;border-radius:12px;border:1.5px solid var(--border2);background:var(--card2);color:var(--text);font-size:0.9rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:0.75rem;cursor:pointer;transition:var(--transition)}
+.google-btn:hover{border-color:var(--orange);transform:translateY(-2px)}
+.auth-link{text-align:center;font-size:0.875rem;color:var(--text3);margin-top:1.5rem}
+.auth-link a{color:var(--orange);font-weight:600}
+.role-select{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem}
+.role-option{background:var(--card2);border:1.5px solid var(--border);border-radius:12px;padding:1rem;text-align:center;cursor:pointer;transition:var(--transition)}
+.role-option.selected{border-color:var(--orange);background:rgba(255,107,53,0.1)}
+.role-option .role-icon{font-size:1.5rem;margin-bottom:0.5rem}
+.role-option .role-name{font-size:0.85rem;font-weight:600}
+
+/* ─── PROFILE PAGE ─── */
+.profile-header{padding:3rem 0;background:radial-gradient(ellipse at top, rgba(255,107,53,0.1) 0%, transparent 70%)}
+.profile-top{display:flex;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+.profile-avatar{width:100px;height:100px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:800;color:white;border:4px solid var(--border2);flex-shrink:0}
+.profile-info{flex:1;min-width:200px}
+.profile-name{font-family:var(--font2);font-size:clamp(1.5rem,3vw,2rem);font-weight:900;margin-bottom:0.25rem}
+.profile-role-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);border-radius:50px;padding:0.3rem 0.75rem;font-size:0.75rem;font-weight:700;color:var(--orange);margin-bottom:0.75rem}
+.profile-bio{font-size:0.9rem;color:var(--text2);max-width:500px;line-height:1.7}
+.profile-stats{display:flex;gap:2rem;margin-top:1.25rem;flex-wrap:wrap}
+.profile-stat{text-align:center}
+.profile-stat-num{font-size:1.5rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.profile-stat-label{font-size:0.75rem;color:var(--text3)}
+.profile-tabs{display:flex;gap:0.5rem;border-bottom:1px solid var(--border);margin-bottom:2rem;overflow-x:auto;scrollbar-width:none}
+.profile-tab{padding:0.75rem 1.25rem;font-size:0.9rem;font-weight:600;color:var(--text3);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:var(--transition)}
+.profile-tab.active{color:var(--orange);border-bottom-color:var(--orange)}
+.profile-tab:hover:not(.active){color:var(--text)}
+
+/* ─── CHAT ─── */
+.chat-layout{display:grid;grid-template-columns:280px 1fr;gap:0;height:calc(100vh - var(--nav-h));border-top:1px solid var(--border)}
+.chat-sidebar{background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.chat-sidebar-header{padding:1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.chat-rooms{flex:1;overflow-y:auto;padding:0.75rem}
+.chat-room-item{padding:0.75rem 1rem;border-radius:12px;cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:0.75rem;margin-bottom:0.25rem}
+.chat-room-item:hover,.chat-room-item.active{background:rgba(255,107,53,0.08)}
+.chat-room-item.active{border:1px solid rgba(255,107,53,0.2)}
+.room-dot{width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.active-users{padding:1rem;border-top:1px solid var(--border)}
+.active-user{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;font-size:0.8rem}
+.online-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.chat-main{display:flex;flex-direction:column}
+.chat-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;background:var(--card)}
+.chat-messages{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem}
+.msg{display:flex;gap:0.75rem;max-width:70%}
+.msg.own{flex-direction:row-reverse;align-self:flex-end}
+.msg-bubble{background:var(--card2);border-radius:16px;border-bottom-left-radius:4px;padding:0.75rem 1rem;font-size:0.875rem;line-height:1.6;border:1px solid var(--border)}
+.msg.own .msg-bubble{background:rgba(255,107,53,0.15);border-color:rgba(255,107,53,0.3);border-radius:16px;border-bottom-right-radius:4px}
+.msg-time{font-size:0.7rem;color:var(--text3);margin-top:0.3rem;text-align:right}
+.typing-indicator{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--text3);padding:0 1.5rem 0.5rem}
+.typing-dots{display:flex;gap:4px}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:typingDot 1.2s infinite ease-in-out}
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+.chat-input-area{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:0.75rem;align-items:flex-end}
+.chat-input{flex:1;background:var(--card2);border:1.5px solid var(--border);border-radius:14px;padding:0.75rem 1rem;color:var(--text);resize:none;outline:none;font-size:0.9rem;transition:var(--transition);max-height:120px;overflow-y:auto}
+.chat-input:focus{border-color:var(--orange)}
+.send-btn{width:44px;height:44px;border-radius:12px;background:var(--grad);border:none;color:white;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:var(--transition)}
+.send-btn:hover{transform:scale(1.05);box-shadow:var(--shadow)}
+
+/* ─── AI CHATBOT ─── */
+.ai-fab{position:fixed;bottom:2rem;right:2rem;width:60px;height:60px;border-radius:50%;background:var(--grad);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:900;box-shadow:0 8px 30px rgba(255,59,59,0.4);transition:var(--transition);animation:pulse 3s ease infinite}
+.ai-fab:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(255,59,59,0.5)}
+.ai-fab-icon{font-size:1.5rem}
+.ai-modal{position:fixed;bottom:7rem;right:2rem;width:360px;max-height:520px;background:var(--card);border:1px solid var(--border2);border-radius:var(--radius2);display:flex;flex-direction:column;z-index:900;box-shadow:0 24px 80px rgba(0,0,0,0.3);animation:slideUp 0.3s ease}
+.ai-modal-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem}
+.ai-header-icon{width:36px;height:36px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.ai-modal-title{font-weight:700;font-size:0.95rem}
+.ai-modal-sub{font-size:0.75rem;color:var(--text3)}
+.close-ai{margin-left:auto;width:28px;height:28px;border-radius:8px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:var(--transition)}
+.close-ai:hover{background:rgba(255,59,59,0.1);color:var(--red)}
+.ai-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;scrollbar-width:thin}
+.ai-msg{max-width:85%}
+.ai-msg.user{align-self:flex-end}
+.ai-msg-bubble{background:var(--card2);border-radius:14px;padding:0.65rem 1rem;font-size:0.85rem;line-height:1.6;border:1px solid var(--border)}
+.ai-msg.user .ai-msg-bubble{background:rgba(255,107,53,0.15);border-color:rgba(255,107,53,0.3)}
+.ai-chips{display:flex;flex-wrap:wrap;gap:0.5rem;padding:0 1rem 0.75rem}
+.ai-chip{background:var(--card2);border:1px solid var(--border);border-radius:50px;padding:0.35rem 0.85rem;font-size:0.75rem;cursor:pointer;transition:var(--transition);color:var(--text2)}
+.ai-chip:hover{border-color:var(--orange);color:var(--orange)}
+.ai-input-row{padding:0.75rem;border-top:1px solid var(--border);display:flex;gap:0.5rem}
+.ai-input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:0.6rem 0.9rem;color:var(--text);font-size:0.85rem;outline:none;transition:var(--transition)}
+.ai-input:focus{border-color:var(--orange)}
+.ai-send{width:36px;height:36px;border-radius:8px;background:var(--grad);border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem}
+
+/* ─── ADMIN PANEL ─── */
+.admin-layout{display:grid;grid-template-columns:240px 1fr;gap:0;min-height:calc(100vh - var(--nav-h))}
+.admin-sidebar{background:var(--card);border-right:1px solid var(--border);padding:2rem 0}
+.admin-nav-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.5rem;font-size:0.9rem;font-weight:500;cursor:pointer;transition:var(--transition);color:var(--text2)}
+.admin-nav-item:hover,.admin-nav-item.active{color:var(--orange);background:rgba(255,107,53,0.08)}
+.admin-nav-item.active{border-right:3px solid var(--orange)}
+.admin-icon{font-size:1.1rem;width:20px}
+.admin-main{padding:2rem;overflow-y:auto}
+.admin-title{font-family:var(--font2);font-size:1.5rem;font-weight:800;margin-bottom:2rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem;margin-bottom:2.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:0.1}
+.stat-card.red::after{background:var(--red)}
+.stat-card.orange::after{background:var(--orange)}
+.stat-card.pink::after{background:var(--pink)}
+.stat-card.green::after{background:#22c55e}
+.stat-card-icon{font-size:1.5rem;margin-bottom:0.75rem}
+.stat-card-num{font-size:2rem;font-weight:900;font-family:var(--font2)}
+.stat-card-label{font-size:0.8rem;color:var(--text3);margin-top:0.25rem}
+.stat-card-change{font-size:0.75rem;color:#22c55e;font-weight:600;margin-top:0.5rem}
+.data-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius2);overflow:hidden;border:1px solid var(--border)}
+.data-table th{padding:1rem 1.25rem;text-align:left;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);background:var(--card2);border-bottom:1px solid var(--border)}
+.data-table td{padding:1rem 1.25rem;border-bottom:1px solid var(--border);font-size:0.875rem;color:var(--text2)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(255,107,53,0.03)}
+.status-badge{display:inline-block;padding:0.25rem 0.75rem;border-radius:50px;font-size:0.75rem;font-weight:600}
+.status-badge.active{background:rgba(34,197,94,0.1);color:#22c55e}
+.status-badge.pending{background:rgba(255,183,71,0.1);color:var(--light-orange)}
+.status-badge.blocked{background:rgba(255,59,59,0.1);color:var(--red)}
+.action-btns{display:flex;gap:0.5rem}
+.action-btn{padding:0.35rem 0.75rem;border-radius:8px;font-size:0.75rem;font-weight:600;cursor:pointer;border:none;transition:var(--transition)}
+.action-btn.approve{background:rgba(34,197,94,0.1);color:#22c55e}
+.action-btn.approve:hover{background:rgba(34,197,94,0.2)}
+.action-btn.delete{background:rgba(255,59,59,0.1);color:var(--red)}
+.action-btn.delete:hover{background:rgba(255,59,59,0.2)}
+.action-btn.edit{background:rgba(255,107,53,0.1);color:var(--orange)}
+.action-btn.edit:hover{background:rgba(255,107,53,0.2)}
+
+/* ─── TOAST ─── */
+.toast-container{position:fixed;top:calc(var(--nav-h) + 1rem);right:1rem;z-index:9999;display:flex;flex-direction:column;gap:0.5rem;pointer-events:none}
+.toast{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.875rem 1.25rem;display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;font-weight:500;box-shadow:var(--shadow);animation:slideInRight 0.3s ease;pointer-events:all;max-width:320px}
+.toast.success{border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.05)}
+.toast.error{border-color:rgba(255,59,59,0.4);background:rgba(255,59,59,0.05)}
+.toast.info{border-color:rgba(255,107,53,0.4);background:rgba(255,107,53,0.05)}
+.toast-icon{font-size:1.1rem}
+.toast-hide{animation:slideOutRight 0.3s ease forwards}
+
+/* ─── SKELETON ─── */
+.skeleton{background:linear-gradient(90deg, var(--card2) 25%, var(--card) 50%, var(--card2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}
+.skeleton-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;height:340px}
+.skeleton-img{height:200px;width:100%}
+.skeleton-body{padding:1.25rem}
+.skeleton-line{height:12px;margin-bottom:10px}
+.skeleton-line.w100{width:100%}
+.skeleton-line.w75{width:75%}
+.skeleton-line.w50{width:50%}
+
+/* ─── NOTIFICATION PANEL ─── */
+.notif-panel{position:absolute;top:calc(100% + 8px);right:0;width:320px;background:var(--card);border:1px solid var(--border2);border-radius:var(--radius2);z-index:200;box-shadow:var(--shadow2);animation:slideUp 0.2s ease;overflow:hidden}
+.notif-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:0.9rem}
+.notif-item{padding:0.875rem 1.25rem;display:flex;gap:0.75rem;border-bottom:1px solid var(--border);cursor:pointer;transition:var(--transition)}
+.notif-item:hover{background:rgba(255,107,53,0.05)}
+.notif-item:last-child{border-bottom:none}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px}
+.notif-text{font-size:0.8rem;line-height:1.5;flex:1}
+.notif-time{font-size:0.7rem;color:var(--text3)}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--red);color:white;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* ─── PAGINATION ─── */
+.pagination{display:flex;justify-content:center;gap:0.5rem;margin-top:2.5rem}
+.page-btn{width:40px;height:40px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:0.9rem;font-weight:600;color:var(--text2);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.page-btn:hover,.page-btn.active{background:var(--orange);border-color:var(--orange);color:white}
+
+/* ─── UNAUTHORIZED / 404 ─── */
+.error-page{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}
+.error-code{font-family:var(--font2);font-size:clamp(5rem,15vw,10rem);font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.error-title{font-size:clamp(1.25rem,3vw,1.75rem);font-weight:700;margin:1rem 0 0.5rem}
+.error-desc{color:var(--text3);max-width:400px;margin:0 auto 2rem}
+
+/* ─── WEEKLY CHALLENGE ─── */
+.challenge-banner{background:var(--grad);border-radius:var(--radius2);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;position:relative;overflow:hidden;margin-bottom:2.5rem}
+.challenge-banner::before{content:'🏆';position:absolute;right:5%;top:50%;transform:translateY(-50%);font-size:6rem;opacity:0.15}
+.challenge-title{font-family:var(--font2);font-size:clamp(1.25rem,3vw,1.75rem);font-weight:900;color:white;margin-bottom:0.25rem}
+.challenge-sub{color:rgba(255,255,255,0.8);font-size:0.9rem}
+.challenge-timer{background:rgba(255,255,255,0.15);border-radius:12px;padding:0.75rem 1.25rem;text-align:center;backdrop-filter:blur(10px)}
+.timer-num{font-size:1.75rem;font-weight:900;color:white;font-family:var(--font2)}
+.timer-label{font-size:0.7rem;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.1em}
+.btn-white{background:white;color:var(--orange);border:none;padding:0.65rem 1.5rem;border-radius:12px;font-weight:700;font-size:0.875rem;cursor:pointer;transition:var(--transition)}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+
+/* ─── FOOTER ─── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem}
+.footer-brand-desc{color:var(--text3);font-size:0.875rem;line-height:1.7;margin:0.75rem 0 1.25rem}
+.footer-socials{display:flex;gap:0.75rem}
+.social-btn{width:38px;height:38px;border-radius:10px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:var(--transition);cursor:pointer}
+.social-btn:hover{background:var(--orange);border-color:var(--orange);color:white}
+.footer-heading{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:1rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.footer-links a{font-size:0.875rem;color:var(--text2);transition:var(--transition)}
+.footer-links a:hover{color:var(--orange)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap;gap:1rem}
+.footer-copy{font-size:0.8rem;color:var(--text3)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideOutRight{to{opacity:0;transform:translateX(100px)}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
+@keyframes shimmer{to{background-position:-200% 0}}
+@keyframes pulse{0%,100%{box-shadow:0 8px 30px rgba(255,59,59,0.4)}50%{box-shadow:0 8px 50px rgba(255,59,59,0.7)}}
+@keyframes typingDot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.4s ease both}
+.fade-up{animation:fadeUp 0.5s ease both}
+
+/* ─── UTILITY ─── */
+.loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--orange);border-radius:50%;animation:spin 0.8s linear infinite;margin:2rem auto}
+.empty-state{text-align:center;padding:4rem 2rem;color:var(--text3)}
+.empty-icon{font-size:3rem;margin-bottom:1rem}
+.divider{height:1px;background:var(--border);margin:2rem 0}
+.tag{background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);color:var(--orange);font-size:0.75rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:6px}
+.badge{background:var(--grad);color:white;font-size:0.7rem;font-weight:700;padding:0.25rem 0.6rem;border-radius:6px}
+.text-grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.text-muted{color:var(--text3)}
+.flex-center{display:flex;align-items:center;justify-content:center}
+.gap-sm{gap:0.5rem}
+.gap-md{gap:1rem}
+.mt-sm{margin-top:0.5rem}
+.mt-md{margin-top:1rem}
+.mt-lg{margin-top:2rem}
+.mb-md{margin-bottom:1rem}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:800;backdrop-filter:blur(4px);animation:fadeIn 0.2s ease}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:850;background:var(--card);border:1px solid var(--border2);border-radius:var(--radius2);padding:2rem;width:90%;max-width:520px;animation:slideUp 0.3s ease;max-height:90vh;overflow-y:auto}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .recipe-detail-layout{grid-template-columns:1fr}
+  .recipe-sidebar{position:static}
+  .admin-layout{grid-template-columns:1fr}
+  .admin-sidebar{display:none}
+  .chat-layout{grid-template-columns:1fr}
+  .chat-sidebar{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-actions .btn-primary,.nav-actions .btn-outline{display:none}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats{gap:1rem}
+  .footer-grid{grid-template-columns:1fr}
+  .ai-modal{width:calc(100vw - 2rem);right:1rem}
+  .profile-top{flex-direction:column;align-items:center;text-align:center}
+  .profile-stats{justify-content:center}
+  .challenge-banner{padding:1.5rem}
+  .challenge-banner::before{display:none}
+}
+@media(max-width:480px){
+  .recipe-grid{grid-template-columns:1fr}
+  .chef-grid{grid-template-columns:repeat(2,1fr)}
+  .category-grid{grid-template-columns:repeat(3,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── TOAST CONTAINER ─── -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">🍳 Culinary Connect</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#" class="active" onclick="showPage('home');return false;">Home</a>
+    <a href="#" onclick="showPage('discover');return false;">Discover</a>
+    <a href="#" onclick="showPage('leaderboard');return false;">Leaderboard</a>
+    <a href="#" onclick="showPage('community');return false;">Community</a>
+    <a href="#" onclick="showPage('chefs');return false;">Top Chefs</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-search-btn" onclick="toggleSearchModal()" title="Search">🔍</button>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+    <div style="position:relative" id="notifWrap">
+      <button class="notif-btn" onclick="toggleNotifPanel()" title="Notifications">🔔
+        <div class="notif-badge">3</div>
+      </button>
+      <div class="notif-panel hide" id="notifPanel">
+        <div class="notif-header">Notifications <span style="font-size:0.8rem;color:var(--orange);cursor:pointer">Mark all read</span></div>
+        <div class="notif-item"><div class="notif-dot"></div><div class="notif-text">Chef Marco liked your comment on "Pasta Carbonara"<div class="notif-time">2 min ago</div></div></div>
+        <div class="notif-item"><div class="notif-dot"></div><div class="notif-text">New recipe posted by Chef Sofia you follow<div class="notif-time">15 min ago</div></div></div>
+        <div class="notif-item"><div class="notif-dot"></div><div class="notif-text">You earned the "Food Explorer" badge! 🏅<div class="notif-time">1 hour ago</div></div></div>
+        <div class="notif-item" style="opacity:0.6"><div class="notif-dot" style="background:var(--text3)"></div><div class="notif-text">Weekly challenge started: Best Summer Dish<div class="notif-time">3 hours ago</div></div></div>
+      </div>
+    </div>
+    <div class="nav-avatar" id="navAvatar" onclick="handleAvatarClick()">
+      <span id="avatarInitials">?</span>
+    </div>
+    <button class="btn-outline hide" id="loginBtn" onclick="showPage('login')">Login</button>
+    <button class="btn-primary hide" id="signupBtn" onclick="showPage('register')">Sign Up</button>
+    <button class="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── MOBILE NAV ─── -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" onclick="showPage('home');closeMobileNav();return false;">🏠 Home</a>
+  <a href="#" onclick="showPage('discover');closeMobileNav();return false;">🔍 Discover</a>
+  <a href="#" onclick="showPage('leaderboard');closeMobileNav();return false;">🏆 Leaderboard</a>
+  <a href="#" onclick="showPage('community');closeMobileNav();return false;">💬 Community</a>
+  <a href="#" onclick="showPage('chefs');closeMobileNav();return false;">👨‍🍳 Top Chefs</a>
+  <a href="#" onclick="showPage('profile');closeMobileNav();return false;">👤 Profile</a>
+  <a href="#" onclick="showPage('login');closeMobileNav();return false;">Login</a>
+</div>
+
+<!-- ─── PAGES ─── -->
+<div id="app">
+
+<!-- ===== HOME PAGE ===== -->
+<div id="page-home" class="page">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-circles">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">🔥 <span>10,000+ Recipes & Growing</span></div>
+      <h1>Discover <span>Recipes</span><br>Made with Love</h1>
+      <p>Explore thousands of chef-crafted recipes, connect with a vibrant community, and unleash your inner cook with AI-powered guidance.</p>
+      <div class="search-wrap">
+        <input class="search-input" type="text" placeholder="Search recipes, ingredients, cuisines…" id="heroSearch" oninput="handleHeroSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch(this.value)"/>
+        <button class="search-btn" onclick="doSearch(document.getElementById('heroSearch').value)">🔍</button>
+        <div class="search-suggestions hide" id="heroSuggestions"></div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-primary" style="padding:0.85rem 2rem;font-size:1rem" onclick="showPage('discover')">Explore Recipes →</button>
+        <button class="btn-outline" style="padding:0.85rem 2rem;font-size:1rem" onclick="showPage('register')">Join Community</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">12K+</div><div class="stat-label">Recipes</div></div>
+        <div class="stat-item"><div class="stat-num">3.4K</div><div class="stat-label">Chefs</div></div>
+        <div class="stat-item"><div class="stat-num">98K</div><div class="stat-label">Community</div></div>
+        <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Rating</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Weekly Challenge -->
+    <div class="section" style="padding-top:4rem;padding-bottom:0">
+      <div class="challenge-banner">
+        <div>
+          <div style="font-size:0.8rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem">Weekly Challenge</div>
+          <div class="challenge-title">Best Summer Dessert 🍦</div>
+          <div class="challenge-sub">Share your ultimate summer sweet treat and win badges!</div>
+          <button class="btn-white" style="margin-top:1.25rem" onclick="showPage('post-recipe')">Join Challenge</button>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <div class="challenge-timer"><div class="timer-num" id="timerDays">3</div><div class="timer-label">days</div></div>
+          <div class="challenge-timer"><div class="timer-num" id="timerHours">14</div><div class="timer-label">hours</div></div>
+          <div class="challenge-timer"><div class="timer-num" id="timerMins">27</div><div class="timer-label">mins</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trending Recipes -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">🔥 <span>Trending</span> This Week</div>
+          <div class="section-subtitle">Most loved recipes by our community</div>
+        </div>
+        <a class="view-all" onclick="showPage('discover');return false;" href="#">View all →</a>
+      </div>
+      <div class="carousel-wrap">
+        <button class="carousel-btn prev" onclick="scrollCarousel('trending', -1)">‹</button>
+        <div class="carousel-track" id="trending"></div>
+        <button class="carousel-btn next" onclick="scrollCarousel('trending', 1)">›</button>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" style="padding-top:0">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Browse by <span>Category</span></div>
+          <div class="section-subtitle">Find exactly what you're craving</div>
+        </div>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <!-- Featured Chefs -->
+    <section class="section" style="padding-top:0">
+      <div class="section-header">
+        <div>
+          <div class="section-title">⭐ Featured <span>Chefs</span></div>
+          <div class="section-subtitle">Talented creators you should follow</div>
+        </div>
+        <a class="view-all" onclick="showPage('chefs');return false;" href="#">See all →</a>
+      </div>
+      <div class="chef-grid" id="featuredChefs"></div>
+    </section>
+
+    <!-- Leaderboard Preview -->
+    <section class="section" style="padding-top:0">
+      <div class="section-header">
+        <div>
+          <div class="section-title">🏆 Weekly <span>Leaderboard</span></div>
+          <div class="section-subtitle">This week's top contributors</div>
+        </div>
+        <a class="view-all" onclick="showPage('leaderboard');return false;" href="#">Full board →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem">
+        <div class="leaderboard-list" id="lbPreview" style="max-width:480px;width:100%"></div>
+        <div id="badgesPreview"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-brand" style="font-size:1.75rem">🍳 Culinary Connect</div>
+          <div class="footer-brand-desc">The ultimate platform for food lovers, chefs, and culinary explorers. Discover, create, and share amazing recipes.</div>
+          <div class="footer-socials">
+            <div class="social-btn">𝕏</div>
+            <div class="social-btn">in</div>
+            <div class="social-btn">📷</div>
+            <div class="social-btn">▶</div>
+          </div>
+        </div>
+        <div>
+          <div class="footer-heading">Discover</div>
+          <ul class="footer-links">
+            <li><a href="#">Trending Recipes</a></li>
+            <li><a href="#">New Additions</a></li>
+            <li><a href="#">Top Chefs</a></li>
+            <li><a href="#">Weekly Challenges</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Community</div>
+          <ul class="footer-links">
+            <li><a href="#">Live Chat</a></li>
+            <li><a href="#">Leaderboard</a></li>
+            <li><a href="#">Badges & Awards</a></li>
+            <li><a href="#">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2024 Culinary Connect. Built with ❤️ for food lovers.</div>
+        <div style="font-size:0.8rem;color:var(--text3)">Made with Poppins & passion</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== DISCOVER PAGE ===== -->
+<div id="page-discover" class="page hide">
+  <div class="container" style="padding-top:2rem;padding-bottom:4rem">
+    <div style="margin-bottom:2rem">
+      <h1 class="section-title">Discover <span>Recipes</span></h1>
+      <p style="color:var(--text3);margin-top:0.5rem">Find your next culinary adventure</p>
+    </div>
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:2rem" id="discoverLayout">
+      <!-- Filters -->
+      <aside>
+        <div class="filter-panel">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+            <span style="font-weight:700">Filters</span>
+            <button onclick="clearFilters()" style="font-size:0.8rem;color:var(--orange);font-weight:600">Clear all</button>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Cuisine</label>
+            <div class="filter-options" id="filterCuisine"></div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Difficulty</label>
+            <div class="filter-options" id="filterDifficulty">
+              <span class="filter-chip" onclick="toggleFilter(this,'difficulty','Easy')">Easy</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'difficulty','Medium')">Medium</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'difficulty','Hard')">Hard</span>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Min Rating</label>
+            <div style="display:flex;align-items:center;gap:0.75rem">
+              <input type="range" min="0" max="5" step="0.5" value="0" class="range-input" id="ratingFilter" oninput="document.getElementById('ratingVal').textContent=this.value+'★'"/>
+              <span style="font-size:0.9rem;font-weight:600;min-width:30px" id="ratingVal">0★</span>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Cook Time</label>
+            <div class="filter-options">
+              <span class="filter-chip" onclick="toggleFilter(this,'time','Under 15 min')">Under 15m</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'time','Under 30 min')">Under 30m</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'time','Under 1 hour')">Under 1h</span>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Diet</label>
+            <div class="filter-options">
+              <span class="filter-chip" onclick="toggleFilter(this,'diet','Vegetarian')">🥦 Veg</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'diet','Vegan')">🌱 Vegan</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'diet','Keto')">🥩 Keto</span>
+              <span class="filter-chip" onclick="toggleFilter(this,'diet','Gluten-Free')">🌾 GF</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <!-- Results -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+          <div class="search-wrap" style="max-width:400px;margin:0">
+            <input class="search-input" type="text" placeholder="Search recipes…" id="discoverSearch" oninput="debounceSearch(this.value)"/>
+            <button class="search-btn">🔍</button>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center">
+            <select class="form-input" style="width:auto;padding:0.5rem 1rem" onchange="sortRecipes(this.value)">
+              <option>Sort: Trending</option>
+              <option>Newest First</option>
+              <option>Top Rated</option>
+              <option>Quickest</option>
+            </select>
+            <div style="font-size:0.85rem;color:var(--text3)" id="resultCount">Showing 12 recipes</div>
+          </div>
+        </div>
+        <div class="recipe-grid" id="discoverGrid"></div>
+        <div class="pagination" id="discoverPagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RECIPE DETAIL PAGE ===== -->
+<div id="page-recipe-detail" class="page hide">
+  <div id="recipeDetailContent"></div>
+</div>
+
+<!-- ===== POST RECIPE PAGE ===== -->
+<div id="page-post-recipe" class="page hide">
+  <div class="container" style="padding-top:2.5rem;padding-bottom:4rem;max-width:800px">
+    <div style="margin-bottom:2rem">
+      <h1 class="section-title">Post a <span>Recipe</span></h1>
+      <p style="color:var(--text3);margin-top:0.5rem">Share your culinary masterpiece with the community</p>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Recipe Title *</label>
+      <input class="form-input" type="text" placeholder="E.g. Creamy Tuscan Garlic Pasta" id="recipeTitle"/>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Cuisine Type</label>
+        <select class="form-input" id="recipeCuisine">
+          <option>Italian</option><option>Asian</option><option>Mexican</option><option>Indian</option><option>American</option><option>French</option><option>Mediterranean</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Difficulty</label>
+        <select class="form-input" id="recipeDifficulty">
+          <option>Easy</option><option>Medium</option><option>Hard</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Prep Time (mins)</label>
+        <input class="form-input" type="number" placeholder="15" id="recipePrepTime"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Cook Time (mins)</label>
+        <input class="form-input" type="number" placeholder="30" id="recipeCookTime"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-input form-textarea" placeholder="Describe your recipe…" id="recipeDesc"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Cover Image</label>
+      <div class="image-upload-zone" onclick="document.getElementById('imgUpload').click()">
+        <div class="upload-icon">📷</div>
+        <div style="font-weight:600;margin-bottom:0.25rem">Click to upload image</div>
+        <div style="font-size:0.8rem;color:var(--text3)">PNG, JPG, WEBP up to 10MB</div>
+        <img id="imagePreview" class="image-preview hide" src="" alt="Preview"/>
+      </div>
+      <input type="file" id="imgUpload" accept="image/*" class="hide" onchange="previewImage(this)"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ingredients</label>
+      <div id="ingredientsList">
+        <div class="ingredient-row"><input class="form-input" type="text" placeholder="E.g. 2 cups flour"/><input class="form-input" type="text" placeholder="Amount" style="max-width:120px"/><button class="remove-btn" onclick="removeRow(this)">✕</button></div>
+        <div class="ingredient-row"><input class="form-input" type="text" placeholder="E.g. 1 cup milk"/><input class="form-input" type="text" placeholder="Amount" style="max-width:120px"/><button class="remove-btn" onclick="removeRow(this)">✕</button></div>
+      </div>
+      <button class="add-btn" onclick="addIngredient()" style="margin-top:0.75rem">+ Add Ingredient</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Steps</label>
+      <div id="stepsList">
+        <div class="step-item" style="margin-bottom:1rem;flex-direction:column;gap:0.5rem">
+          <div style="display:flex;align-items:center;gap:0.75rem"><div class="step-num">1</div><input class="form-input" type="text" placeholder="Step title"/></div>
+          <textarea class="form-input form-textarea" placeholder="Describe this step…" style="min-height:80px;margin-left:0"></textarea>
+          <button class="remove-btn" onclick="removeRow(this.parentElement)" style="align-self:flex-end">✕ Remove step</button>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addStep()" style="margin-top:0.5rem">+ Add Step</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tags (comma separated)</label>
+      <input class="form-input" type="text" placeholder="pasta, italian, comfort-food" id="recipeTags"/>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:flex-end;flex-wrap:wrap;margin-top:2rem">
+      <button class="btn-outline" onclick="saveDraft()">💾 Save Draft</button>
+      <button class="btn-primary" style="padding:0.75rem 2rem" onclick="publishRecipe()">🚀 Publish Recipe</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="page-login" class="page hide">
+  <div class="auth-page">
+    <div class="auth-card fade-up">
+      <div class="auth-logo">🍳 Culinary Connect</div>
+      <div class="auth-subtitle">Welcome back, food lover!</div>
+      <button class="google-btn" onclick="loginGoogle()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-divider">or sign in with email</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com" id="loginEmail"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" placeholder="••••••••" id="loginPassword"/>
+      </div>
+      <div style="text-align:right;margin:-0.5rem 0 1.5rem"><a href="#" style="font-size:0.85rem;color:var(--orange)">Forgot password?</a></div>
+      <button class="btn-primary" style="width:100%;padding:0.85rem;font-size:1rem" onclick="handleLogin()">Sign In</button>
+      <div class="auth-link">Don't have an account? <a href="#" onclick="showPage('register');return false;">Sign Up</a></div>
+      <div style="margin-top:1.5rem;padding:1rem;background:rgba(255,107,53,0.06);border-radius:12px;border:1px solid var(--border)">
+        <div style="font-size:0.8rem;font-weight:700;color:var(--orange);margin-bottom:0.5rem">Demo Accounts</div>
+        <div style="font-size:0.8rem;color:var(--text2);display:flex;flex-direction:column;gap:0.4rem">
+          <div onclick="demoLogin('foodie')" style="cursor:pointer;padding:0.3rem 0.6rem;border-radius:6px;background:var(--card2)">👤 foodie@demo.com / demo123</div>
+          <div onclick="demoLogin('chef')" style="cursor:pointer;padding:0.3rem 0.6rem;border-radius:6px;background:var(--card2)">👨‍🍳 chef@demo.com / demo123</div>
+          <div onclick="demoLogin('admin')" style="cursor:pointer;padding:0.3rem 0.6rem;border-radius:6px;background:var(--card2)">🛡️ admin@demo.com / demo123</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REGISTER PAGE ===== -->
+<div id="page-register" class="page hide">
+  <div class="auth-page">
+    <div class="auth-card fade-up">
+      <div class="auth-logo">🍳 Culinary Connect</div>
+      <div class="auth-subtitle">Join the food lover community!</div>
+      <div class="form-group">
+        <label class="form-label">Choose your role</label>
+        <div class="role-select">
+          <div class="role-option selected" onclick="selectRole(this,'FOODIE')">
+            <div class="role-icon">🍽️</div>
+            <div class="role-name">Food Lover</div>
+          </div>
+          <div class="role-option" onclick="selectRole(this,'CHEF')">
+            <div class="role-icon">👨‍🍳</div>
+            <div class="role-name">Chef</div>
+          </div>
+        </div>
+        <input type="hidden" id="selectedRole" value="FOODIE"/>
+      </div>
+      <button class="google-btn" onclick="loginGoogle()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-divider">or register with email</div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="John" id="regFirst"/></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Doe" id="regLast"/></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com" id="regEmail"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" type="password" placeholder="Create a strong password" id="regPassword"/>
+      </div>
+      <button class="btn-primary" style="width:100%;padding:0.85rem;font-size:1rem" onclick="handleRegister()">Create Account</button>
+      <div class="auth-link">Already have an account? <a href="#" onclick="showPage('login');return false;">Sign In</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROFILE PAGE ===== -->
+<div id="page-profile" class="page hide">
+  <div class="profile-header">
+    <div class="container">
+      <div class="profile-top">
+        <div class="profile-avatar" id="profileAvatar">👤</div>
+        <div class="profile-info">
+          <div class="profile-name" id="profileName">Guest User</div>
+          <div class="profile-role-badge" id="profileRoleBadge">🍽️ Food Lover</div>
+          <div class="profile-bio" id="profileBio">Food enthusiast passionate about exploring world cuisines and sharing delicious recipes with the community.</div>
+          <div class="profile-stats">
+            <div class="profile-stat"><div class="profile-stat-num">0</div><div class="profile-stat-label">Recipes</div></div>
+            <div class="profile-stat"><div class="profile-stat-num">0</div><div class="profile-stat-label">Followers</div></div>
+            <div class="profile-stat"><div class="profile-stat-num">0</div><div class="profile-stat-label">Following</div></div>
+            <div class="profile-stat"><div class="profile-stat-num">0</div><div class="profile-stat-label">Likes</div></div>
+          </div>
+        </div>
+        <div style="margin-left:auto;display:flex;flex-direction:column;gap:0.75rem" id="profileActions">
+          <button class="btn-primary" onclick="showPage('post-recipe')">+ New Recipe</button>
+          <button class="btn-outline">Edit Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="padding-bottom:4rem">
+    <div class="profile-tabs">
+      <div class="profile-tab active" onclick="switchProfileTab(this,'recipes')">My Recipes</div>
+      <div class="profile-tab" onclick="switchProfileTab(this,'bookmarks')">Bookmarks</div>
+      <div class="profile-tab" onclick="switchProfileTab(this,'activity')">Activity</div>
+      <div class="profile-tab" onclick="switchProfileTab(this,'badges')">Badges</div>
+    </div>
+    <div id="profileTabContent"></div>
+  </div>
+</div>
+
+<!-- ===== LEADERBOARD PAGE ===== -->
+<div id="page-leaderboard" class="page hide">
+  <div class="container" style="padding-top:2.5rem;padding-bottom:4rem">
+    <div class="section-header">
+      <div>
+        <h1 class="section-title">🏆 <span>Leaderboard</span></h1>
+        <p style="color:var(--text3);margin-top:0.5rem">Weekly ranking of our most active community members</p>
+      </div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="filter-chip active">This Week</button>
+        <button class="filter-chip">All Time</button>
+        <button class="filter-chip">Monthly</button>
+      </div>
+    </div>
+    <!-- Top 3 Podium -->
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:1rem;margin-bottom:3rem;flex-wrap:wrap" id="podium"></div>
+    <!-- Full list -->
+    <div class="leaderboard-list" id="fullLeaderboard" style="max-width:700px;margin:0 auto"></div>
+  </div>
+</div>
+
+<!-- ===== COMMUNITY CHAT PAGE ===== -->
+<div id="page-community" class="page hide" style="padding-top:var(--nav-h)">
+  <div class="chat-layout">
+    <div class="chat-sidebar">
+      <div class="chat-sidebar-header">
+        <span style="font-weight:700;font-size:0.95rem">Chat Rooms</span>
+        <button class="icon-btn" title="Create room">+</button>
+      </div>
+      <div class="chat-rooms">
+        <div class="chat-room-item active" onclick="switchRoom('General')"><div class="room-dot"></div><span style="font-size:0.875rem;font-weight:600">🌍 General</span></div>
+        <div class="chat-room-item" onclick="switchRoom('Italian Cuisine')"><div class="room-dot"></div><span style="font-size:0.875rem;font-weight:600">🍝 Italian</span></div>
+        <div class="chat-room-item" onclick="switchRoom('Asian Flavors')"><div class="room-dot"></div><span style="font-size:0.875rem;font-weight:600">🍜 Asian</span></div>
+        <div class="chat-room-item" onclick="switchRoom('Baking & Sweets')"><div class="room-dot"></div><span style="font-size:0.875rem;font-weight:600">🍰 Baking</span></div>
+        <div class="chat-room-item" onclick="switchRoom('Weekly Challenge')"><div class="room-dot" style="background:#22c55e"></div><span style="font-size:0.875rem;font-weight:600">🏆 Challenge</span></div>
+      </div>
+      <div class="active-users">
+        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem">Online (4)</div>
+        <div class="active-user"><div class="online-dot"></div><span>Chef Marco</span></div>
+        <div class="active-user"><div class="online-dot"></div><span>Sofia R.</span></div>
+        <div class="active-user"><div class="online-dot"></div><span>Carlos M.</span></div>
+        <div class="active-user"><div class="online-dot"></div><span>You</span></div>
+      </div>
+    </div>
+    <div class="chat-main">
+      <div class="chat-header">
+        <div class="room-dot"></div>
+        <div>
+          <div style="font-weight:700;font-size:0.95rem" id="chatRoomTitle">🌍 General</div>
+          <div style="font-size:0.75rem;color:var(--text3)">4 members online • WebSocket connected</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:0.5rem">
+          <button class="icon-btn" title="Search">🔍</button>
+          <button class="icon-btn" title="Members">👥</button>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="typing-indicator" id="typingIndicator" style="display:none">
+        <div class="typing-dots">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+        <span id="typingText">Chef Marco is typing…</span>
+      </div>
+      <div class="chat-input-area">
+        <div style="display:flex;gap:0.5rem;flex-direction:column;flex:1">
+          <div style="display:flex;gap:0.5rem">
+            <button class="icon-btn" title="Emoji">😊</button>
+            <button class="icon-btn" title="Image">📷</button>
+            <button class="icon-btn" title="Recipe">🍳</button>
+          </div>
+          <div style="display:flex;gap:0.5rem">
+            <textarea class="chat-input" placeholder="Type a message… (Enter to send)" rows="1" id="chatInput" onkeydown="handleChatKey(event)"></textarea>
+            <button class="send-btn" onclick="sendChatMessage()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOP CHEFS PAGE ===== -->
+<div id="page-chefs" class="page hide">
+  <div class="container" style="padding-top:2.5rem;padding-bottom:4rem">
+    <div style="margin-bottom:2rem">
+      <h1 class="section-title">👨‍🍳 Top <span>Chefs</span></h1>
+      <p style="color:var(--text3);margin-top:0.5rem">Discover and follow amazing culinary creators</p>
+    </div>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem" id="chefFilters">
+      <span class="filter-chip active" onclick="filterChefs(this,'all')">All Chefs</span>
+      <span class="filter-chip" onclick="filterChefs(this,'Italian')">Italian</span>
+      <span class="filter-chip" onclick="filterChefs(this,'Asian')">Asian</span>
+      <span class="filter-chip" onclick="filterChefs(this,'Pastry')">Pastry</span>
+      <span class="filter-chip" onclick="filterChefs(this,'Vegan')">Vegan</span>
+    </div>
+    <div class="chef-grid" id="chefsGrid"></div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PAGE ===== -->
+<div id="page-admin" class="page hide" style="padding-top:var(--nav-h)">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div style="padding:1.5rem;font-weight:800;font-family:var(--font2);background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:1.1rem">Admin Panel</div>
+      <div class="admin-nav-item active" onclick="adminNav(this,'dashboard')"><span class="admin-icon">📊</span>Dashboard</div>
+      <div class="admin-nav-item" onclick="adminNav(this,'users')"><span class="admin-icon">👥</span>Users</div>
+      <div class="admin-nav-item" onclick="adminNav(this,'recipes')"><span class="admin-icon">🍳</span>Recipes</div>
+      <div class="admin-nav-item" onclick="adminNav(this,'comments')"><span class="admin-icon">💬</span>Comments</div>
+      <div class="admin-nav-item" onclick="adminNav(this,'analytics')"><span class="admin-icon">📈</span>Analytics</div>
+      <div style="margin-top:auto;padding:1.5rem">
+        <button class="btn-outline" style="width:100%;font-size:0.85rem" onclick="handleLogout()">Sign Out</button>
+      </div>
+    </aside>
+    <div class="admin-main" id="adminMain"></div>
+  </div>
+</div>
+
+<!-- ===== UNAUTHORIZED PAGE ===== -->
+<div id="page-unauthorized" class="page hide">
+  <div class="error-page">
+    <div>
+      <div class="error-code">403</div>
+      <div class="error-title">Access Restricted</div>
+      <div class="error-desc">You don't have permission to access this page. Please log in with the appropriate role.</div>
+      <button class="btn-primary" style="padding:0.85rem 2rem" onclick="showPage('home')">Back to Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 404 PAGE ===== -->
+<div id="page-404" class="page hide">
+  <div class="error-page">
+    <div>
+      <div class="error-code">404</div>
+      <div class="error-title">Page Not Found</div>
+      <div class="error-desc">The page you're looking for doesn't exist or has been moved.</div>
+      <button class="btn-primary" style="padding:0.85rem 2rem" onclick="showPage('home')">Back to Home</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- ─── AI CHATBOT ─── -->
+<button class="ai-fab hide" id="aiFab" onclick="toggleAI()">
+  <span class="ai-fab-icon">🤖</span>
+</button>
+<div class="ai-modal hide" id="aiModal">
+  <div class="ai-modal-header">
+    <div class="ai-header-icon">🤖</div>
+    <div><div class="ai-modal-title">Sous Chef AI</div><div class="ai-modal-sub">Your personal cooking assistant</div></div>
+    <button class="close-ai" onclick="toggleAI()">✕</button>
+  </div>
+  <div class="ai-messages" id="aiMessages">
+    <div class="ai-msg">
+      <div class="ai-msg-bubble">👋 Hi! I'm your AI cooking assistant. Ask me about recipes, cooking techniques, ingredient substitutes, or get personalized recipe recommendations!</div>
+    </div>
+  </div>
+  <div class="ai-chips">
+    <span class="ai-chip" onclick="askAI('Recommend recipes for tonight')">🍽️ Tonight's ideas</span>
+    <span class="ai-chip" onclick="askAI('What can I make with chicken and pasta?')">🥘 Ingredient match</span>
+    <span class="ai-chip" onclick="askAI('Show me a quick 15-minute recipe')">⏱️ Quick recipes</span>
+  </div>
+  <div class="ai-input-row">
+    <input class="ai-input" id="aiInput" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter')sendAI()"/>
+    <button class="ai-send" onclick="sendAI()">➤</button>
+  </div>
+</div>
+
+<!-- ─── SEARCH MODAL ─── -->
+<div class="overlay hide" id="searchOverlay" onclick="toggleSearchModal()"></div>
+<div class="modal hide" id="searchModal" style="top:8rem;transform:translate(-50%,0)">
+  <div style="margin-bottom:1rem">
+    <div style="font-weight:700;font-size:1.1rem;margin-bottom:1rem">Search Recipes</div>
+    <div class="search-wrap" style="max-width:100%;margin:0">
+      <input class="search-input" type="text" placeholder="Search recipes, chefs, ingredients…" id="modalSearch" oninput="handleModalSearch(this.value)" autofocus/>
+      <button class="search-btn">🔍</button>
+    </div>
+  </div>
+  <div style="margin-top:1rem">
+    <div style="font-size:0.8rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem">Trending Searches</div>
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem" id="trendingSearches"></div>
+  </div>
+  <div id="modalSearchResults" style="margin-top:1.5rem;max-height:300px;overflow-y:auto"></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────
+//   MOCK DATA
+// ─────────────────────────────────────────
+const MOCK_RECIPES = [
+  {id:1,title:"Creamy Tuscan Garlic Pasta",chef:"Chef Marco",chefId:"chef1",cuisine:"Italian",difficulty:"Easy",time:30,rating:4.8,likes:1204,img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80",category:"Pasta",badge:"🔥 Trending",tags:["pasta","italian","quick"]},
+  {id:2,title:"Spicy Thai Basil Chicken",chef:"Chef Nisa",chefId:"chef2",cuisine:"Asian",difficulty:"Medium",time:25,rating:4.7,likes:893,img:"https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80",category:"Chicken",badge:"⭐ Featured",tags:["thai","spicy","quick"]},
+  {id:3,title:"Classic French Croissants",chef:"Chef Pierre",chefId:"chef3",cuisine:"French",difficulty:"Hard",time:180,rating:4.9,likes:2107,img:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80",category:"Baking",badge:"🏆 Award",tags:["baking","french","breakfast"]},
+  {id:4,title:"Avocado Toast Perfection",chef:"Chef Mia",chefId:"chef4",cuisine:"American",difficulty:"Easy",time:10,rating:4.5,likes:567,img:"https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=600&q=80",category:"Breakfast",tags:["vegan","quick","healthy"]},
+  {id:5,title:"Beef Tacos al Pastor",chef:"Chef Carlos",chefId:"chef5",cuisine:"Mexican",difficulty:"Medium",time:45,rating:4.8,likes:1456,img:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80",category:"Mexican",badge:"🔥 Trending",tags:["mexican","tacos","bbq"]},
+  {id:6,title:"Mango Sticky Rice",chef:"Chef Nisa",chefId:"chef2",cuisine:"Asian",difficulty:"Easy",time:40,rating:4.6,likes:734,img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80",category:"Dessert",tags:["dessert","thai","vegan"]},
+  {id:7,title:"Margherita Pizza",chef:"Chef Marco",chefId:"chef1",cuisine:"Italian",difficulty:"Medium",time:60,rating:4.9,likes:3201,img:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80",category:"Pizza",badge:"⭐ Top Rated",tags:["pizza","italian","cheese"]},
+  {id:8,title:"Chicken Tikka Masala",chef:"Chef Priya",chefId:"chef6",cuisine:"Indian",difficulty:"Medium",time:55,rating:4.8,likes:1789,img:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",category:"Chicken",tags:["indian","curry","spicy"]},
+  {id:9,title:"Chocolate Lava Cake",chef:"Chef Pierre",chefId:"chef3",cuisine:"French",difficulty:"Medium",time:25,rating:4.9,likes:2456,img:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80",category:"Dessert",badge:"❤️ Loved",tags:["dessert","chocolate","romantic"]},
+  {id:10,title:"Ramen from Scratch",chef:"Chef Hiro",chefId:"chef7",cuisine:"Asian",difficulty:"Hard",time:240,rating:4.7,likes:1123,img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80",category:"Soup",tags:["ramen","japanese","complex"]},
+  {id:11,title:"Greek Salad Supreme",chef:"Chef Elena",chefId:"chef8",cuisine:"Mediterranean",difficulty:"Easy",time:15,rating:4.4,likes:421,img:"https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600&q=80",category:"Salad",tags:["healthy","vegetarian","quick"]},
+  {id:12,title:"Beef Bourguignon",chef:"Chef Pierre",chefId:"chef3",cuisine:"French",difficulty:"Hard",time:180,rating:4.8,likes:987,img:"https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",category:"Meat",tags:["french","beef","slow-cook"]},
+];
+
+const MOCK_CHEFS = [
+  {id:"chef1",name:"Chef Marco",specialty:"Italian Cuisine",avatar:"MC",followers:12400,recipes:87,rating:4.9,bio:"Born in Naples, I bring authentic Italian flavors to your table."},
+  {id:"chef2",name:"Chef Nisa",specialty:"Thai & Asian",avatar:"CN",followers:9800,recipes:64,rating:4.8,bio:"Southeast Asian food enthusiast bringing bold flavors."},
+  {id:"chef3",name:"Chef Pierre",specialty:"French Pastry",avatar:"CP",followers:15200,recipes:102,rating:4.9,bio:"Classically trained French chef with a modern twist."},
+  {id:"chef4",name:"Chef Mia",specialty:"Healthy & Vegan",avatar:"CM",followers:7600,recipes:43,rating:4.7,bio:"Making plant-based cooking exciting and delicious."},
+  {id:"chef5",name:"Chef Carlos",specialty:"Mexican Cuisine",avatar:"CC",followers:8900,recipes:55,rating:4.8,bio:"Authentic Mexican street food brought to your kitchen."},
+  {id:"chef6",name:"Chef Priya",specialty:"Indian Spices",avatar:"PK",followers:11000,recipes:71,rating:4.8,bio:"Mastering the art of Indian spice blends."},
+  {id:"chef7",name:"Chef Hiro",specialty:"Japanese Ramen",avatar:"HT",followers:6700,recipes:38,rating:4.7,bio:"Crafting the perfect bowl of ramen since 2010."},
+  {id:"chef8",name:"Chef Elena",specialty:"Mediterranean",avatar:"EG",followers:5400,recipes:29,rating:4.6,bio:"Celebrating the fresh flavors of the Mediterranean."},
+];
+
+const LEADERBOARD_DATA = [
+  {rank:1,name:"Chef Marco",pts:8740,badge:"🥇",recipes:12,streak:"7 days"},
+  {rank:2,name:"Chef Pierre",pts:7890,badge:"🥈",recipes:10,streak:"5 days"},
+  {rank:3,name:"Chef Nisa",pts:7120,badge:"🥉",recipes:9,streak:"4 days"},
+  {rank:4,name:"Chef Priya",pts:5430,badge:"🏅",recipes:8,streak:"3 days"},
+  {rank:5,name:"Chef Carlos",pts:4980,badge:"🏅",recipes:7,streak:"2 days"},
+  {rank:6,name:"Chef Mia",pts:4210,badge:"🏅",recipes:6,streak:"6 days"},
+  {rank:7,name:"Chef Hiro",pts:3870,badge:"🎖️",recipes:5,streak:"1 day"},
+  {rank:8,name:"Chef Elena",pts:3120,badge:"🎖️",recipes:4,streak:"2 days"},
+];
+
+const CATEGORIES = [
+  {icon:"🍝",name:"Pasta"},
+  {icon:"🍕",name:"Pizza"},
+  {icon:"🍣",name:"Asian"},
+  {icon:"🌮",name:"Mexican"},
+  {icon:"🥗",name:"Salads"},
+  {icon:"🍰",name:"Desserts"},
+  {icon:"🥚",name:"Breakfast"},
+  {icon:"🍲",name:"Soups"},
+  {icon:"🥩",name:"Meat"},
+  {icon:"🌱",name:"Vegan"},
+  {icon:"🥖",name:"Baking"},
+  {icon:"🍹",name:"Drinks"},
+];
+
+const MOCK_COMMENTS = [
+  {id:1,author:"FoodieJane",avatar:"FJ",text:"This recipe is absolutely incredible! Made it last night and my family loved every bite. The garlic sauce is divine! ❤️",time:"2 hours ago"},
+  {id:2,author:"TasteExplorer",avatar:"TE",text:"I've tried many pasta recipes but this one tops them all. Added some sun-dried tomatoes — next level!",time:"4 hours ago"},
+  {id:3,author:"KitchenNovice",avatar:"KN",text:"First time making this and it turned out perfect. The step-by-step instructions are so clear. Thank you!",time:"1 day ago"},
+];
+
+const CHAT_MESSAGES = [
+  {id:1,author:"Chef Marco",avatar:"MC",text:"Good morning everyone! 🌅 What are you all cooking today?",time:"9:00 AM",own:false},
+  {id:2,author:"Sofia R.",avatar:"SR",text:"I'm trying Chef Pierre's croissant recipe! Fingers crossed 🤞",time:"9:02 AM",own:false},
+  {id:3,author:"You",avatar:"ME",text:"Just made the Thai Basil Chicken — absolutely amazing! Highly recommend 🔥",time:"9:05 AM",own:true},
+  {id:4,author:"Carlos M.",avatar:"CM",text:"Has anyone tried the new ramen recipe? It takes 4 hours but looks worth it!",time:"9:08 AM",own:false},
+  {id:5,author:"Chef Marco",avatar:"MC",text:"The trick is in the bone broth. 12 hours slow simmer is the real secret 😄",time:"9:10 AM",own:false},
+];
+
+const TRENDING_SEARCHES = ["pasta carbonara","chocolate cake","vegan tacos","ramen","croissant","butter chicken","sushi","tiramisu"];
+
+// ─────────────────────────────────────────
+//   AUTH STATE
+// ─────────────────────────────────────────
+let currentUser = null;
+let currentPage = 'home';
+let activeFilters = {};
+let searchTimer = null;
+let chatSimTimer = null;
+
+function loadUser(){
+  try{
+    const d = localStorage.getItem('recipez_user');
+    if(d) currentUser = JSON.parse(d);
+  }catch(e){}
+}
+
+function saveUser(user){
+  currentUser = user;
+  localStorage.setItem('recipez_user',JSON.stringify(user));
+}
+
+function handleLogin(){
+  const email = document.getElementById('loginEmail').value;
+  const pw = document.getElementById('loginPassword').value;
+  if(!email || !pw){showToast('Please fill in all fields','error');return;}
+  // Simulate API: POST /auth/login
+  simulateLogin(email);
+}
+
+function demoLogin(role){
+  const users = {
+    foodie:{id:'u1',name:'Alex Johnson',email:'foodie@demo.com',role:'FOODIE',avatar:'AJ',token:'mock_jwt_foodie_token'},
+    chef:{id:'u2',name:'Chef Marco',email:'chef@demo.com',role:'CHEF',avatar:'CM',token:'mock_jwt_chef_token'},
+    admin:{id:'u3',name:'Admin User',email:'admin@demo.com',role:'ADMIN',avatar:'AD',token:'mock_jwt_admin_token'},
+  };
+  saveUser(users[role]);
+  updateNavUI();
+  showToast(`Welcome back, ${users[role].name}! 👋`,'success');
+  showPage('home');
+}
+
+function simulateLogin(email){
+  let role = 'FOODIE', name = 'Alex Johnson', avatar = 'AJ';
+  if(email.includes('chef')){role='CHEF';name='Chef Marco';avatar='CM';}
+  if(email.includes('admin')){role='ADMIN';name='Admin User';avatar='AD';}
+  saveUser({id:'u'+Date.now(),name,email,role,avatar,token:'mock_jwt_'+role.toLowerCase()+'_'+Date.now()});
+  updateNavUI();
+  showToast(`Welcome back, ${name}! 👋`,'success');
+  showPage('home');
+}
+
+function handleRegister(){
+  const first=document.getElementById('regFirst').value;
+  const last=document.getElementById('regLast').value;
+  const email=document.getElementById('regEmail').value;
+  const pw=document.getElementById('regPassword').value;
+  const role=document.getElementById('selectedRole').value;
+  if(!first||!last||!email||!pw){showToast('Please fill in all fields','error');return;}
+  // Simulate API: POST /auth/register
+  const name=`${first} ${last}`;
+  saveUser({id:'u'+Date.now(),name,email,role,avatar:first[0].toUpperCase()+last[0].toUpperCase(),token:'mock_jwt_'+Date.now()});
+  updateNavUI();
+  showToast(`Welcome to Recipez, ${name}! 🎉`,'success');
+  showPage('home');
+}
+
+function handleLogout(){
+  currentUser = null;
+  localStorage.removeItem('recipez_user');
+  updateNavUI();
+  showToast('Signed out successfully','info');
+  showPage('home');
+}
+
+function loginGoogle(){
+  showToast('Google OAuth would redirect to backend: POST /auth/google','info');
+}
+
+function selectRole(el, role){
+  document.querySelectorAll('.role-option').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('selectedRole').value=role;
+}
+
+function updateNavUI(){
+  const avatar = document.getElementById('navAvatar');
+  const initials = document.getElementById('avatarInitials');
+  const aiFab = document.getElementById('aiFab');
+  if(currentUser){
+    initials.textContent = currentUser.avatar||currentUser.name[0];
+    avatar.classList.remove('hide');
+    document.getElementById('loginBtn').classList.add('hide');
+    document.getElementById('signupBtn').classList.add('hide');
+    aiFab.classList.remove('hide');
+  } else {
+    initials.textContent = '?';
+    avatar.classList.remove('hide');
+    document.getElementById('loginBtn').classList.remove('hide');
+    document.getElementById('signupBtn').classList.remove('hide');
+    aiFab.classList.remove('hide');
+  }
+}
+
+function handleAvatarClick(){
+  if(currentUser){
+    const menu=['Profile','Bookmarks','Settings','Admin Panel','Sign Out'];
+    const el = document.getElementById('navAvatar');
+    // Simple dropdown simulation
+    if(currentUser.role==='ADMIN'){showPage('admin');}
+    else{showPage('profile');}
+  } else {
+    showPage('login');
+  }
+}
+
+// ─────────────────────────────────────────
+//   ROUTING / PROTECTED ROUTES
+// ─────────────────────────────────────────
+const PROTECTED_ROUTES = {
+  'post-recipe': ['CHEF','ADMIN'],
+  'admin': ['ADMIN'],
+  'profile': null, // requires any auth
+};
+
+function showPage(page){
+  // Access control
+  if(PROTECTED_ROUTES[page] !== undefined){
+    if(!currentUser){showPage('login');return;}
+    if(PROTECTED_ROUTES[page] && !PROTECTED_ROUTES[page].includes(currentUser.role)){
+      showPage('unauthorized');return;
+    }
+  }
+
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hide'));
+  const target = document.getElementById('page-'+page);
+  if(!target){document.getElementById('page-404').classList.remove('hide');return;}
+  target.classList.remove('hide');
+  currentPage = page;
+  window.scrollTo(0,0);
+
+  // Update nav active
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+
+  // Page-specific init
+  if(page==='home') initHome();
+  else if(page==='discover') initDiscover();
+  else if(page==='leaderboard') initLeaderboard();
+  else if(page==='community') initChat();
+  else if(page==='chefs') initChefs();
+  else if(page==='admin') initAdmin();
+  else if(page==='profile') initProfile();
+}
+
+// ─────────────────────────────────────────
+//   HOME PAGE
+// ─────────────────────────────────────────
+function initHome(){
+  renderCarousel('trending', MOCK_RECIPES.slice(0,6));
+  renderCategories();
+  renderFeaturedChefs();
+  renderLeaderboardPreview();
+  renderBadges();
+  startTimer();
+}
+
+function renderCarousel(id, recipes){
+  const track = document.getElementById(id);
+  if(!track) return;
+  track.innerHTML = recipes.map(r=>`
+    <div class="carousel-card">
+      ${recipeCardHTML(r)}
+    </div>
+  `).join('');
+}
+
+function recipeCardHTML(r){
+  const liked = getLiked(r.id);
+  const bookmarked = getBookmarked(r.id);
+  const stars = '★'.repeat(Math.floor(r.rating))+'☆'.repeat(5-Math.floor(r.rating));
+  return `
+    <div class="recipe-card" onclick="openRecipe(${r.id})">
+      <div class="recipe-card-img-wrap">
+        ${r.badge?`<div class="recipe-badge">${r.badge}</div>`:''}
+        <img class="recipe-card-img" src="${r.img}" alt="${r.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80'"/>
+      </div>
+      <div class="recipe-card-body">
+        <div class="recipe-card-meta">
+          <span class="tag">${r.cuisine}</span>
+          <span>•</span>
+          <span>${r.difficulty}</span>
+        </div>
+        <div class="recipe-card-title">${r.title}</div>
+        <div class="recipe-card-chef">
+          <div class="chef-avatar">${r.chef.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+          <span>${r.chef}</span>
+        </div>
+        <div class="recipe-card-footer">
+          <div class="stars">${stars.split('').map((s,i)=>`<span class="${s==='★'?'star':'star empty'}">${s}</span>`).join('')} <span style="margin-left:4px;font-size:0.75rem;color:var(--text2)">${r.rating}</span></div>
+          <div class="recipe-actions">
+            <button class="icon-btn ${liked?'active':''}" onclick="event.stopPropagation();toggleLike(${r.id},this)" title="Like">❤️ ${r.likes}</button>
+            <button class="icon-btn ${bookmarked?'active':''}" onclick="event.stopPropagation();toggleBookmark(${r.id},this)" title="Bookmark">🔖</button>
+          </div>
+        </div>
+        <div class="time-tag" style="margin-top:0.5rem">⏱ ${r.time < 60 ? r.time+'m' : Math.floor(r.time/60)+'h '+r.time%60+'m'}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderCategories(){
+  const grid = document.getElementById('categoryGrid');
+  if(!grid) return;
+  grid.innerHTML = CATEGORIES.map(c=>`
+    <div class="category-card" onclick="filterByCategory('${c.name}')">
+      <span class="cat-icon">${c.icon}</span>
+      <div class="cat-name">${c.name}</div>
+    </div>
+  `).join('');
+}
+
+function renderFeaturedChefs(){
+  const grid = document.getElementById('featuredChefs');
+  if(!grid) return;
+  grid.innerHTML = MOCK_CHEFS.slice(0,4).map(c=>chefCardHTML(c)).join('');
+}
+
+function chefCardHTML(c){
+  const following = getFollowing(c.id);
+  return `
+    <div class="chef-card" onclick="openChef('${c.id}')">
+      <div class="chef-avatar-lg">${c.avatar}</div>
+      <div class="chef-name">${c.name}</div>
+      <div class="chef-specialty">${c.specialty}</div>
+      <div class="chef-stats">
+        <span>🍳 ${c.recipes}</span>
+        <span>👥 ${(c.followers/1000).toFixed(1)}k</span>
+        <span>⭐ ${c.rating}</span>
+      </div>
+      <button class="follow-btn ${following?'following':''}" onclick="event.stopPropagation();toggleFollow('${c.id}',this)">
+        ${following?'✓ Following':'+ Follow'}
+      </button>
+    </div>
+  `;
+}
+
+function renderLeaderboardPreview(){
+  const el = document.getElementById('lbPreview');
+  if(!el) return;
+  el.innerHTML = LEADERBOARD_DATA.slice(0,5).map(item=>`
+    <div class="lb-item">
+      <div class="lb-rank ${item.rank===1?'gold':item.rank===2?'silver':item.rank===3?'bronze':''}">${item.badge}</div>
+      <div class="lb-info">
+        <div class="lb-name">${item.name}</div>
+        <div class="lb-pts">${item.pts.toLocaleString()} points • ${item.recipes} recipes this week</div>
+      </div>
+      <div style="font-size:0.75rem;color:var(--text3)">🔥 ${item.streak}</div>
+    </div>
+  `).join('');
+}
+
+function renderBadges(){
+  const el = document.getElementById('badgesPreview');
+  if(!el) return;
+  const badges = [
+    {emoji:'🏅',name:'Top Contributor',desc:'Posted 5+ recipes this week'},
+    {emoji:'🔥',name:'Hot Streak',desc:'Active for 7 days straight'},
+    {emoji:'⭐',name:'Rising Star',desc:'New chef trending this week'},
+    {emoji:'❤️',name:'Community Love',desc:'Received 100+ likes'},
+    {emoji:'🎯',name:'Challenge Winner',desc:'Won the weekly challenge'},
+    {emoji:'👨‍🍳',name:'Master Chef',desc:'100+ recipes posted'},
+  ];
+  el.innerHTML = `
+    <div style="margin-bottom:1rem;font-weight:700;font-size:0.95rem">🏅 Achievement Badges</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem">
+      ${badges.map(b=>`
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.875rem;display:flex;align-items:center;gap:0.75rem">
+          <span style="font-size:1.5rem">${b.emoji}</span>
+          <div><div style="font-size:0.8rem;font-weight:700">${b.name}</div><div style="font-size:0.7rem;color:var(--text3)">${b.desc}</div></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function startTimer(){
+  // Countdown timer simulation
+  let d=3,h=14,m=27,s=45;
+  clearInterval(window.timerInterval);
+  window.timerInterval = setInterval(()=>{
+    s--;if(s<0){s=59;m--;}
+    if(m<0){m=59;h--;}
+    if(h<0){h=23;d--;}
+    if(d<0){d=0;h=0;m=0;s=0;clearInterval(window.timerInterval);}
+    const dm=document.getElementById('timerDays');
+    const hm=document.getElementById('timerHours');
+    const mm=document.getElementById('timerMins');
+    if(dm) dm.textContent=d;
+    if(hm) hm.textContent=h;
+    if(mm) mm.textContent=m;
+  },1000);
+}
+
+// ─────────────────────────────────────────
+//   DISCOVER PAGE
+// ─────────────────────────────────────────
+function initDiscover(){
+  renderCuisineFilters();
+  renderDiscoverGrid(MOCK_RECIPES);
+  renderPagination(12);
+}
+
+function renderCuisineFilters(){
+  const el = document.getElementById('filterCuisine');
+  if(!el) return;
+  const cuisines = [...new Set(MOCK_RECIPES.map(r=>r.cuisine))];
+  el.innerHTML = cuisines.map(c=>`<span class="filter-chip" onclick="toggleFilter(this,'cuisine','${c}')">${c}</span>`).join('');
+}
+
+function renderDiscoverGrid(recipes){
+  const grid = document.getElementById('discoverGrid');
+  if(!grid) return;
+  if(!recipes.length){grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div><div>No recipes found</div></div>`;return;}
+  grid.innerHTML = recipes.map(r=>recipeCardHTML(r)).join('');
+  const cnt = document.getElementById('resultCount');
+  if(cnt) cnt.textContent = `Showing ${recipes.length} recipes`;
+}
+
+function toggleFilter(el, type, val){
+  el.classList.toggle('active');
+  if(!activeFilters[type]) activeFilters[type]=[];
+  const idx = activeFilters[type].indexOf(val);
+  if(idx>-1) activeFilters[type].splice(idx,1);
+  else activeFilters[type].push(val);
+  applyFilters();
+}
+
+function applyFilters(){
+  let results = [...MOCK_RECIPES];
+  if(activeFilters.cuisine?.length) results=results.filter(r=>activeFilters.cuisine.includes(r.cuisine));
+  if(activeFilters.difficulty?.length) results=results.filter(r=>activeFilters.difficulty.includes(r.difficulty));
+  if(activeFilters.diet?.length) results=results.filter(r=>activeFilters.diet.some(d=>r.tags?.includes(d.toLowerCase())));
+  renderDiscoverGrid(results);
+}
+
+function clearFilters(){
+  activeFilters={};
+  document.querySelectorAll('.filter-chip.active').forEach(e=>e.classList.remove('active'));
+  renderDiscoverGrid(MOCK_RECIPES);
+}
+
+function filterByCategory(cat){
+  showPage('discover');
+  const results = MOCK_RECIPES.filter(r=>r.category===cat||r.cuisine===cat||r.tags?.includes(cat.toLowerCase()));
+  setTimeout(()=>renderDiscoverGrid(results.length?results:MOCK_RECIPES),100);
+}
+
+function debounceSearch(q){
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{
+    if(!q.trim()){renderDiscoverGrid(MOCK_RECIPES);return;}
+    const results = MOCK_RECIPES.filter(r=>r.title.toLowerCase().includes(q.toLowerCase())||r.chef.toLowerCase().includes(q.toLowerCase())||r.cuisine.toLowerCase().includes(q.toLowerCase()));
+    renderDiscoverGrid(results);
+  },300);
+}
+
+function sortRecipes(v){
+  let sorted = [...MOCK_RECIPES];
+  if(v.includes('Rating')) sorted.sort((a,b)=>b.rating-a.rating);
+  else if(v.includes('Quickest')) sorted.sort((a,b)=>a.time-b.time);
+  else if(v.includes('Newest')) sorted.sort((a,b)=>b.id-a.id);
+  renderDiscoverGrid(sorted);
+}
+
+function renderPagination(total){
+  const el = document.getElementById('discoverPagination');
+  if(!el) return;
+  const pages = Math.ceil(total/8);
+  el.innerHTML = ['‹',...Array.from({length:pages},(_,i)=>i+1),'›'].map((p,i)=>`
+    <button class="page-btn ${p===1?'active':''}" onclick="this.parentElement.querySelectorAll('.page-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">${p}</button>
+  `).join('');
+}
+
+// ─────────────────────────────────────────
+//   RECIPE DETAIL
+// ─────────────────────────────────────────
+function openRecipe(id){
+  const r = MOCK_RECIPES.find(x=>x.id===id);
+  if(!r) return;
+  const liked = getLiked(r.id);
+  const bookmarked = getBookmarked(r.id);
+
+  const related = MOCK_RECIPES.filter(x=>x.cuisine===r.cuisine&&x.id!==r.id).slice(0,3);
+
+  document.getElementById('recipeDetailContent').innerHTML = `
+    <div class="recipe-hero">
+      <img class="recipe-hero-img" src="${r.img}" alt="${r.title}" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80'"/>
+      <div class="recipe-hero-overlay"></div>
+      <div class="recipe-hero-content">
+        <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap">
+          <span class="tag" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);color:white">${r.cuisine}</span>
+          <span class="tag" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);color:white">${r.difficulty}</span>
+        </div>
+        <div class="recipe-hero-title">${r.title}</div>
+        <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.8);font-size:0.875rem">
+            <div class="chef-avatar">${r.chef.split(' ').map(w=>w[0]).join('').slice(0,2)}</div> ${r.chef}
+          </div>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem">⏱ ${r.time} min</span>
+          <span style="color:rgba(255,255,255,0.7);font-size:0.875rem">⭐ ${r.rating} (${r.likes.toLocaleString()} likes)</span>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="padding-bottom:4rem">
+      <div class="recipe-detail-layout">
+        <div>
+          <div style="display:flex;gap:0.75rem;margin-bottom:2rem;flex-wrap:wrap">
+            <button class="icon-btn ${liked?'active':''}" style="padding:0.5rem 1rem;width:auto;font-size:0.875rem" onclick="toggleLike(${r.id},this)">
+              ❤️ <span id="likeCountDetail">${r.likes}</span> Likes
+            </button>
+            <button class="icon-btn ${bookmarked?'active':''}" style="padding:0.5rem 1rem;width:auto;font-size:0.875rem" onclick="toggleBookmark(${r.id},this)">
+              🔖 Bookmark
+            </button>
+            <button class="icon-btn" style="padding:0.5rem 1rem;width:auto;font-size:0.875rem">
+              📤 Share
+            </button>
+          </div>
+
+          <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:1.25rem">About this Recipe</h2>
+          <p style="color:var(--text2);line-height:1.8;margin-bottom:2.5rem">
+            A classic ${r.cuisine} dish that brings together the finest ingredients in perfect harmony. 
+            This recipe has been perfected over generations and brings authentic flavors to your table.
+            ${r.difficulty === 'Easy' ? 'Perfect for beginners — even if you have minimal cooking experience, you\'ll nail this!' : ''}
+          </p>
+
+          <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:1.25rem">Ingredients</h2>
+          <ul class="ingredients-list">
+            <li>400g pasta (spaghetti or linguine)</li>
+            <li>4 cloves garlic, minced</li>
+            <li>200ml heavy cream</li>
+            <li>100g parmesan, freshly grated</li>
+            <li>2 tbsp olive oil, extra virgin</li>
+            <li>1 cup cherry tomatoes, halved</li>
+            <li>Fresh basil leaves, for garnish</li>
+            <li>Salt and black pepper to taste</li>
+            <li>Red chili flakes (optional)</li>
+          </ul>
+
+          <h2 style="font-size:1.25rem;font-weight:700;margin:2.5rem 0 1.25rem">Instructions</h2>
+          <ol class="steps-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Prep & Boil Pasta</div>
+                <div class="step-desc">Bring a large pot of salted water to a boil. Add pasta and cook according to package directions until al dente. Reserve 1 cup pasta water before draining.</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Create the Garlic Base</div>
+                <div class="step-desc">In a large skillet over medium heat, warm olive oil. Add minced garlic and sauté for 1-2 minutes until fragrant but not browned. Add cherry tomatoes and cook for 3 minutes.</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Make the Cream Sauce</div>
+                <div class="step-desc">Pour in heavy cream and bring to a gentle simmer. Stir in parmesan cheese until melted and sauce is smooth. Season with salt, pepper, and chili flakes.</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Combine & Serve</div>
+                <div class="step-desc">Add drained pasta to the sauce. Toss vigorously, adding pasta water a splash at a time to reach desired consistency. Serve immediately garnished with fresh basil.</div>
+              </div>
+            </li>
+          </ol>
+
+          <!-- Comments -->
+          <div class="comments-section">
+            <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:1.5rem">💬 Comments (${MOCK_COMMENTS.length})</h2>
+            <div class="comment-input-wrap">
+              <div class="chef-avatar" style="width:40px;height:40px;font-size:1rem;flex-shrink:0">${currentUser?currentUser.avatar[0]:'?'}</div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:0.5rem">
+                <textarea class="comment-input" placeholder="${currentUser?'Add a comment…':'Please log in to comment'}" rows="2" id="commentInput" ${!currentUser?'disabled':''}></textarea>
+                <div style="display:flex;justify-content:flex-end">
+                  <button class="btn-primary" style="padding:0.5rem 1.25rem;font-size:0.85rem" onclick="postComment()">Post Comment</button>
+                </div>
+              </div>
+            </div>
+            <div id="commentsList">
+              ${MOCK_COMMENTS.map(c=>`
+                <div class="comment-item">
+                  <div class="chef-avatar" style="width:40px;height:40px;font-size:0.9rem;flex-shrink:0">${c.avatar}</div>
+                  <div class="comment-body">
+                    <div class="comment-author">${c.author}</div>
+                    <div class="comment-text">${c.text}</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                      <div class="comment-time">${c.time}</div>
+                      <div style="display:flex;gap:0.5rem;font-size:0.75rem;color:var(--text3)">
+                        <button style="background:none;border:none;cursor:pointer;color:inherit;font-size:0.75rem" onclick="showToast('Reply feature coming soon!','info')">↩ Reply</button>
+                        <button style="background:none;border:none;cursor:pointer;color:inherit;font-size:0.75rem">❤️ 12</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="recipe-sidebar">
+          <div class="sidebar-card">
+            <div class="sidebar-title">⏱ Quick Stats</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+              <div style="background:var(--card2);border-radius:10px;padding:0.875rem;text-align:center">
+                <div style="font-size:1.25rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${r.time}</div>
+                <div style="font-size:0.7rem;color:var(--text3)">Total Min</div>
+              </div>
+              <div style="background:var(--card2);border-radius:10px;padding:0.875rem;text-align:center">
+                <div style="font-size:1.25rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">4</div>
+                <div style="font-size:0.7rem;color:var(--text3)">Servings</div>
+              </div>
+              <div style="background:var(--card2);border-radius:10px;padding:0.875rem;text-align:center">
+                <div style="font-size:1.25rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">420</div>
+                <div style="font-size:0.7rem;color:var(--text3)">Calories</div>
+              </div>
+              <div style="background:var(--card2);border-radius:10px;padding:0.875rem;text-align:center">
+                <div style="font-size:1.25rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${r.difficulty}</div>
+                <div style="font-size:0.7rem;color:var(--text3)">Difficulty</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sidebar-card">
+            <div class="sidebar-title">⭐ Rate this Recipe</div>
+            <div class="rating-stars" id="ratingStars">
+              ${[1,2,3,4,5].map(n=>`<span onclick="rateRecipe(${n})" style="transition:transform 0.15s" onmouseover="hoverStar(${n})" onmouseout="unhoverStar()">☆</span>`).join('')}
+            </div>
+            <div style="font-size:0.8rem;color:var(--text3);margin-top:0.5rem">Current: ${r.rating}/5 (${r.likes} ratings)</div>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-title">👨‍🍳 About the Chef</div>
+            <div style="display:flex;align-items:center;gap:0.875rem;margin-bottom:1rem">
+              <div class="chef-avatar-lg" style="width:52px;height:52px;font-size:1rem">${r.chef.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+              <div>
+                <div style="font-weight:700">${r.chef}</div>
+                <div style="font-size:0.8rem;color:var(--text3)">${MOCK_CHEFS.find(c=>c.id===r.chefId)?.specialty||'Expert Chef'}</div>
+              </div>
+            </div>
+            <button class="follow-btn" onclick="toggleFollow('${r.chefId}',this)">+ Follow Chef</button>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-title">🍽️ Related Recipes</div>
+            ${related.map(rr=>`
+              <div style="display:flex;gap:0.75rem;margin-bottom:0.875rem;cursor:pointer" onclick="openRecipe(${rr.id})">
+                <img src="${rr.img}" style="width:60px;height:60px;border-radius:10px;object-fit:cover;flex-shrink:0" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=100&q=60'"/>
+                <div>
+                  <div style="font-size:0.85rem;font-weight:600;line-height:1.3;margin-bottom:0.25rem">${rr.title}</div>
+                  <div style="font-size:0.75rem;color:var(--text3)">⭐ ${rr.rating} • ${rr.time} min</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </aside>
+      </div>
+    </div>
+  `;
+  showPage('recipe-detail');
+}
+
+function postComment(){
+  if(!currentUser){showToast('Please log in to comment','error');showPage('login');return;}
+  const input = document.getElementById('commentInput');
+  const text = input?.value?.trim();
+  if(!text) return;
+  const newComment = `
+    <div class="comment-item fade-up">
+      <div class="chef-avatar" style="width:40px;height:40px;font-size:0.9rem;flex-shrink:0">${currentUser.avatar}</div>
+      <div class="comment-body">
+        <div class="comment-author">${currentUser.name}</div>
+        <div class="comment-text">${text}</div>
+        <div class="comment-time">Just now</div>
+      </div>
+    </div>
+  `;
+  document.getElementById('commentsList').insertAdjacentHTML('afterbegin', newComment);
+  input.value = '';
+  showToast('Comment posted! 💬','success');
+  // API: POST /comments { recipeId, text }
+}
+
+function rateRecipe(n){
+  const stars = document.getElementById('ratingStars');
+  if(!stars) return;
+  stars.querySelectorAll('span').forEach((s,i)=>{s.textContent=i<n?'★':'☆';s.style.color=i<n?'var(--light-orange)':'var(--text3)';});
+  showToast(`Rated ${n} stars! ⭐`,'success');
+  // API: POST /recipes/:id/rate { rating: n }
+}
+
+function hoverStar(n){
+  const stars = document.getElementById('ratingStars');
+  if(!stars) return;
+  stars.querySelectorAll('span').forEach((s,i)=>{s.textContent=i<n?'★':'☆';s.style.color=i<n?'var(--light-orange)':'var(--text3)';});
+}
+
+function unhoverStar(){
+  const stars = document.getElementById('ratingStars');
+  if(!stars) return;
+  stars.querySelectorAll('span').forEach(s=>{s.textContent='☆';s.style.color='var(--text3)';});
+}
+
+// ─────────────────────────────────────────
+//   SOCIAL INTERACTIONS
+// ─────────────────────────────────────────
+function getLiked(id){ try{return JSON.parse(localStorage.getItem('likes')||'[]').includes(id);}catch{return false;} }
+function getBookmarked(id){ try{return JSON.parse(localStorage.getItem('bookmarks')||'[]').includes(id);}catch{return false;} }
+function getFollowing(id){ try{return JSON.parse(localStorage.getItem('following')||'[]').includes(id);}catch{return false;} }
+
+function toggleLike(id, btn){
+  if(!currentUser){showToast('Please log in to like recipes','error');return;}
+  try{
+    let likes = JSON.parse(localStorage.getItem('likes')||'[]');
+    const idx = likes.indexOf(id);
+    if(idx>-1){likes.splice(idx,1);btn.classList.remove('active');}
+    else{likes.push(id);btn.classList.add('active');}
+    localStorage.setItem('likes',JSON.stringify(likes));
+    showToast(idx>-1?'Removed from likes':'Added to likes ❤️','info');
+    // API: POST /like { recipeId: id }
+  }catch(e){}
+}
+
+function toggleBookmark(id, btn){
+  if(!currentUser){showToast('Please log in to bookmark recipes','error');return;}
+  try{
+    let bm = JSON.parse(localStorage.getItem('bookmarks')||'[]');
+    const idx = bm.indexOf(id);
+    if(idx>-1){bm.splice(idx,1);btn.classList.remove('active');}
+    else{bm.push(id);btn.classList.add('active');}
+    localStorage.setItem('bookmarks',JSON.stringify(bm));
+    showToast(idx>-1?'Removed bookmark':'Bookmarked! 🔖','info');
+    // API: POST /bookmark { recipeId: id }
+  }catch(e){}
+}
+
+function toggleFollow(id, btn){
+  if(!currentUser){showToast('Please log in to follow chefs','error');return;}
+  try{
+    let f = JSON.parse(localStorage.getItem('following')||'[]');
+    const idx = f.indexOf(id);
+    if(idx>-1){f.splice(idx,1);btn.classList.remove('following');btn.textContent='+ Follow';}
+    else{f.push(id);btn.classList.add('following');btn.textContent='✓ Following';}
+    localStorage.setItem('following',JSON.stringify(f));
+    showToast(idx>-1?'Unfollowed':'Now following! 👥','info');
+    // API: POST /follow { userId: id }
+  }catch(e){}
+}
+
+// ─────────────────────────────────────────
+//   LEADERBOARD
+// ─────────────────────────────────────────
+function initLeaderboard(){
+  renderPodium();
+  renderFullLeaderboard();
+}
+
+function renderPodium(){
+  const el = document.getElementById('podium');
+  if(!el) return;
+  const top3 = LEADERBOARD_DATA.slice(0,3);
+  const order = [top3[1], top3[0], top3[2]]; // 2nd, 1st, 3rd
+  const heights = ['160px','200px','140px'];
+  const colors = ['#C0C0C0','#FFD700','#CD7F32'];
+  el.innerHTML = order.map((item,i)=>`
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+      <div class="chef-avatar-lg" style="width:64px;height:64px;font-size:1.25rem;border:3px solid ${colors[i]}">${item.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div style="font-weight:700;font-size:0.9rem;text-align:center;max-width:100px">${item.name}</div>
+      <div style="font-size:0.8rem;color:var(--text3)">${item.pts.toLocaleString()} pts</div>
+      <div style="width:90px;height:${heights[i]};background:${colors[i]};border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:center;font-size:2rem;opacity:0.8">${item.badge}</div>
+    </div>
+  `).join('');
+}
+
+function renderFullLeaderboard(){
+  const el = document.getElementById('fullLeaderboard');
+  if(!el) return;
+  el.innerHTML = LEADERBOARD_DATA.map(item=>`
+    <div class="lb-item">
+      <div class="lb-rank ${item.rank===1?'gold':item.rank===2?'silver':item.rank===3?'bronze':''}">
+        ${item.rank<=3?item.badge:'#'+item.rank}
+      </div>
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:white;flex-shrink:0">
+        ${item.name.split(' ').map(w=>w[0]).join('').slice(0,2)}
+      </div>
+      <div class="lb-info">
+        <div class="lb-name">${item.name}</div>
+        <div class="lb-pts">${item.pts.toLocaleString()} points • ${item.recipes} recipes this week</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:0.85rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${item.pts.toLocaleString()}</div>
+        <div style="font-size:0.7rem;color:#22c55e">🔥 ${item.streak}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─────────────────────────────────────────
+//   COMMUNITY CHAT
+// ─────────────────────────────────────────
+function initChat(){
+  renderChatMessages();
+  simulateTyping();
+}
+
+function renderChatMessages(){
+  const el = document.getElementById('chatMessages');
+  if(!el) return;
+  el.innerHTML = CHAT_MESSAGES.map(m=>`
+    <div class="msg ${m.own?'own':''}">
+      ${!m.own?`<div class="chef-avatar" style="width:36px;height:36px;font-size:0.8rem;flex-shrink:0">${m.avatar}</div>`:''}
+      <div>
+        ${!m.own?`<div style="font-size:0.75rem;font-weight:700;margin-bottom:0.3rem;color:var(--orange)">${m.author}</div>`:''}
+        <div class="msg-bubble">${m.text}</div>
+        <div class="msg-time">${m.time}</div>
+      </div>
+    </div>
+  `).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function sendChatMessage(){
+  const input = document.getElementById('chatInput');
+  if(!input) return;
+  const text = input.value.trim();
+  if(!text) return;
+  if(!currentUser){showToast('Please log in to chat','error');showPage('login');return;}
+
+  const messages = document.getElementById('chatMessages');
+  const newMsg = document.createElement('div');
+  newMsg.className = 'msg own fade-in';
+  newMsg.innerHTML = `
+    <div>
+      <div class="msg-bubble">${text}</div>
+      <div class="msg-time">Just now</div>
+    </div>
+  `;
+  messages.appendChild(newMsg);
+  messages.scrollTop = messages.scrollHeight;
+  input.value = '';
+  // WebSocket: socket.emit('message', { room: currentRoom, text, userId })
+
+  // Simulate reply after 2s
+  clearTimeout(chatSimTimer);
+  showTypingIndicator('Chef Marco');
+  chatSimTimer = setTimeout(()=>{
+    hideTypingIndicator();
+    const replies = [
+      "Sounds delicious! 🔥",
+      "That's a great technique!",
+      "I love that recipe too! Try adding some lemon zest.",
+      "Have you tried the version with truffle oil?",
+      "Amazing! The community needs more recipes like this 👨‍🍳"
+    ];
+    const reply = document.createElement('div');
+    reply.className = 'msg fade-in';
+    reply.innerHTML = `
+      <div class="chef-avatar" style="width:36px;height:36px;font-size:0.8rem;flex-shrink:0">MC</div>
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;margin-bottom:0.3rem;color:var(--orange)">Chef Marco</div>
+        <div class="msg-bubble">${replies[Math.floor(Math.random()*replies.length)]}</div>
+        <div class="msg-time">Just now</div>
+      </div>
+    `;
+    messages.appendChild(reply);
+    messages.scrollTop = messages.scrollHeight;
+  }, 2000);
+}
+
+function handleChatKey(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMessage();}
+}
+
+function showTypingIndicator(name){
+  const el = document.getElementById('typingIndicator');
+  const text = document.getElementById('typingText');
+  if(el){el.style.display='flex';}
+  if(text) text.textContent = `${name} is typing…`;
+}
+
+function hideTypingIndicator(){
+  const el = document.getElementById('typingIndicator');
+  if(el) el.style.display='none';
+}
+
+function simulateTyping(){
+  setTimeout(()=>{
+    if(currentPage==='community'){
+      showTypingIndicator('Sofia R.');
+      setTimeout(()=>hideTypingIndicator(),3000);
+    }
+  },4000);
+}
+
+function switchRoom(name){
+  document.querySelectorAll('.chat-room-item').forEach(el=>el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const title = document.getElementById('chatRoomTitle');
+  if(title) title.textContent = event.currentTarget.textContent.trim();
+  showToast(`Joined ${name} room`,'info');
+  // WebSocket: socket.emit('join_room', { room: name })
+}
+
+// ─────────────────────────────────────────
+//   TOP CHEFS
+// ─────────────────────────────────────────
+function initChefs(){
+  renderChefsGrid(MOCK_CHEFS);
+}
+
+function renderChefsGrid(chefs){
+  const grid = document.getElementById('chefsGrid');
+  if(!grid) return;
+  grid.innerHTML = chefs.map(c=>chefCardHTML(c)).join('');
+}
+
+function filterChefs(el, type){
+  document.querySelectorAll('#chefFilters .filter-chip').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  if(type==='all'){renderChefsGrid(MOCK_CHEFS);return;}
+  const filtered = MOCK_CHEFS.filter(c=>c.specialty.includes(type));
+  renderChefsGrid(filtered.length?filtered:MOCK_CHEFS);
+}
+
+function openChef(id){
+  const chef = MOCK_CHEFS.find(c=>c.id===id);
+  if(!chef) return;
+  showToast(`Opening ${chef.name}'s profile`,'info');
+  // Would navigate to /profile/:id
+}
+
+// ─────────────────────────────────────────
+//   PROFILE
+// ─────────────────────────────────────────
+function initProfile(){
+  if(!currentUser) return;
+  const avatar = document.getElementById('profileAvatar');
+  const name = document.getElementById('profileName');
+  const bio = document.getElementById('profileBio');
+  const role = document.getElementById('profileRoleBadge');
+  const actions = document.getElementById('profileActions');
+
+  if(avatar) avatar.textContent = currentUser.avatar||'👤';
+  if(name) name.textContent = currentUser.name;
+  if(role) role.textContent = currentUser.role==='CHEF'?'👨‍🍳 Chef':currentUser.role==='ADMIN'?'🛡️ Administrator':'🍽️ Food Lover';
+  if(actions && currentUser.role!=='CHEF' && currentUser.role!=='ADMIN'){
+    actions.innerHTML = '<button class="btn-outline">Edit Profile</button>';
+  }
+
+  loadProfileTab('recipes');
+}
+
+function switchProfileTab(el, tab){
+  document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  loadProfileTab(tab);
+}
+
+function loadProfileTab(tab){
+  const el = document.getElementById('profileTabContent');
+  if(!el) return;
+  if(tab==='recipes'){
+    const myRecipes = MOCK_RECIPES.slice(0,4);
+    el.innerHTML = myRecipes.length?`<div class="recipe-grid">${myRecipes.map(r=>recipeCardHTML(r)).join('')}</div>`:`<div class="empty-state"><div class="empty-icon">🍳</div><div>No recipes yet</div><button class="btn-primary" style="margin-top:1rem" onclick="showPage('post-recipe')">Post First Recipe</button></div>`;
+  } else if(tab==='bookmarks'){
+    try{
+      const ids = JSON.parse(localStorage.getItem('bookmarks')||'[]');
+      const recipes = MOCK_RECIPES.filter(r=>ids.includes(r.id));
+      el.innerHTML = recipes.length?`<div class="recipe-grid">${recipes.map(r=>recipeCardHTML(r)).join('')}</div>`:`<div class="empty-state"><div class="empty-icon">🔖</div><div>No bookmarks yet</div></div>`;
+    }catch{el.innerHTML=`<div class="empty-state"><div class="empty-icon">🔖</div><div>No bookmarks yet</div></div>`;}
+  } else if(tab==='activity'){
+    el.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:0.75rem;max-width:600px">
+        ${['Liked "Creamy Tuscan Garlic Pasta"','Commented on "Thai Basil Chicken"','Followed Chef Pierre','Bookmarked "Mango Sticky Rice"','Posted a recipe: "Homemade Granola"'].map((a,i)=>`
+          <div style="display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.875rem 1.25rem">
+            <div style="font-size:1.25rem">${['❤️','💬','👥','🔖','🍳'][i]}</div>
+            <div style="font-size:0.875rem">${a}</div>
+            <div style="margin-left:auto;font-size:0.75rem;color:var(--text3)">${i+1}h ago</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else if(tab==='badges'){
+    el.innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem">
+        ${[{e:'🔥',n:'Hot Streak',d:'Active 7 days in a row'},{e:'❤️',n:'Foodie',d:'Liked 50+ recipes'},{e:'🏅',n:'Explorer',d:'Visited 10+ cuisine types'},{e:'💬',n:'Chatterbox',d:'Posted 20+ comments'}].map(b=>`
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center">
+            <div style="font-size:3rem;margin-bottom:0.75rem">${b.e}</div>
+            <div style="font-weight:700;margin-bottom:0.3rem">${b.n}</div>
+            <div style="font-size:0.8rem;color:var(--text3)">${b.d}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+}
+
+// ─────────────────────────────────────────
+//   ADMIN PANEL
+// ─────────────────────────────────────────
+function initAdmin(){
+  adminNav(document.querySelector('.admin-nav-item.active'), 'dashboard');
+}
+
+function adminNav(el, section){
+  document.querySelectorAll('.admin-nav-item').forEach(e=>e.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const main = document.getElementById('adminMain');
+  if(!main) return;
+
+  if(section==='dashboard'){
+    main.innerHTML = `
+      <div class="admin-title">📊 Dashboard Overview</div>
+      <div class="stats-grid">
+        <div class="stat-card red"><div class="stat-card-icon">🍳</div><div class="stat-card-num">12,847</div><div class="stat-card-label">Total Recipes</div><div class="stat-card-change">↑ +234 this week</div></div>
+        <div class="stat-card orange"><div class="stat-card-icon">👥</div><div class="stat-card-num">98,234</div><div class="stat-card-label">Registered Users</div><div class="stat-card-change">↑ +1,203 this week</div></div>
+        <div class="stat-card pink"><div class="stat-card-icon">💬</div><div class="stat-card-num">45,678</div><div class="stat-card-label">Comments</div><div class="stat-card-change">↑ +892 this week</div></div>
+        <div class="stat-card green"><div class="stat-card-icon">❤️</div><div class="stat-card-num">1.2M</div><div class="stat-card-label">Total Likes</div><div class="stat-card-change">↑ +15k this week</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:700;margin-bottom:1rem">Recent Activity</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem">
+            ${['New recipe pending approval: "Spicy Ramen"','User ChefJohn flagged for spam','Comment reported on recipe #234','New chef registration: PastryByLucia','Weekly challenge started automatically'].map((a,i)=>`
+              <div style="display:flex;gap:0.75rem;padding:0.75rem;background:var(--card2);border-radius:10px;font-size:0.85rem">
+                <span>${['⏳','🚩','💬','👨‍🍳','🏆'][i]}</span>
+                <span>${a}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:700;margin-bottom:1rem">Quick Actions</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem">
+            <button class="btn-primary" onclick="adminNav(null,'recipes')" style="justify-content:flex-start;display:flex;gap:0.75rem;align-items:center">🍳 Review Pending Recipes (3)</button>
+            <button class="btn-outline" onclick="adminNav(null,'users')" style="justify-content:flex-start;display:flex;gap:0.75rem;align-items:center">👥 Manage Users</button>
+            <button class="btn-outline" onclick="adminNav(null,'comments')" style="justify-content:flex-start;display:flex;gap:0.75rem;align-items:center">💬 Moderate Comments</button>
+          </div>
+        </div>
+      </div>
+    `;
+  } else if(section==='users'){
+    main.innerHTML = `
+      <div class="admin-title">👥 User Management</div>
+      <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <input class="form-input" style="max-width:300px" type="text" placeholder="Search users…"/>
+        <select class="form-input" style="width:auto"><option>All Roles</option><option>FOODIE</option><option>CHEF</option><option>ADMIN</option></select>
+        <select class="form-input" style="width:auto"><option>All Status</option><option>Active</option><option>Blocked</option></select>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${[
+            {name:'Chef Marco',email:'marco@recipez.com',role:'CHEF',status:'active',joined:'Jan 2024'},
+            {name:'FoodieJane',email:'jane@email.com',role:'FOODIE',status:'active',joined:'Feb 2024'},
+            {name:'SpamBot99',email:'spam@bad.com',role:'FOODIE',status:'blocked',joined:'Mar 2024'},
+            {name:'Chef Pierre',email:'pierre@recipez.com',role:'CHEF',status:'active',joined:'Dec 2023'},
+            {name:'AdminSarah',email:'sarah@recipez.com',role:'ADMIN',status:'active',joined:'Nov 2023'},
+          ].map(u=>`
+            <tr>
+              <td style="font-weight:600;color:var(--text)">${u.name}</td>
+              <td>${u.email}</td>
+              <td><span class="badge" style="font-size:0.7rem">${u.role}</span></td>
+              <td><span class="status-badge ${u.status}">${u.status}</span></td>
+              <td>${u.joined}</td>
+              <td><div class="action-btns">
+                <button class="action-btn edit" onclick="showToast('Edit user: ${u.name}','info')">Edit</button>
+                <button class="action-btn ${u.status==='blocked'?'approve':'delete'}" onclick="showToast('${u.status==='blocked'?'Unblocked':'Blocked'}: ${u.name}','${u.status==='blocked'?'success':'error'}')">${u.status==='blocked'?'Unblock':'Block'}</button>
+                <button class="action-btn delete" onclick="showToast('Deleted ${u.name}','error')">Delete</button>
+              </div></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } else if(section==='recipes'){
+    main.innerHTML = `
+      <div class="admin-title">🍳 Recipe Moderation</div>
+      <table class="data-table">
+        <thead><tr><th>Recipe</th><th>Chef</th><th>Category</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${MOCK_RECIPES.slice(0,6).map((r,i)=>`
+            <tr>
+              <td style="font-weight:600;color:var(--text);max-width:200px">${r.title}</td>
+              <td>${r.chef}</td>
+              <td><span class="tag">${r.cuisine}</span></td>
+              <td><span class="status-badge ${i<2?'pending':'active'}">${i<2?'pending':'active'}</span></td>
+              <td>Mar ${15-i}, 2024</td>
+              <td><div class="action-btns">
+                <button class="action-btn approve" onclick="showToast('Recipe approved!','success')">Approve</button>
+                <button class="action-btn edit" onclick="showToast('Opening editor…','info')">Edit</button>
+                <button class="action-btn delete" onclick="showToast('Recipe deleted','error')">Delete</button>
+              </div></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } else if(section==='comments'){
+    main.innerHTML = `
+      <div class="admin-title">💬 Comment Moderation</div>
+      <table class="data-table">
+        <thead><tr><th>Author</th><th>Comment</th><th>Recipe</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${MOCK_COMMENTS.map((c,i)=>`
+            <tr>
+              <td style="font-weight:600">${c.author}</td>
+              <td style="max-width:300px;color:var(--text2)">${c.text.slice(0,80)}…</td>
+              <td>Recipe #${i+1}</td>
+              <td><span class="status-badge ${i===1?'pending':'active'}">${i===1?'reported':'active'}</span></td>
+              <td><div class="action-btns">
+                <button class="action-btn approve" onclick="showToast('Comment approved','success')">Keep</button>
+                <button class="action-btn delete" onclick="showToast('Comment deleted','error')">Delete</button>
+              </div></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } else if(section==='analytics'){
+    main.innerHTML = `
+      <div class="admin-title">📈 Analytics</div>
+      <div class="stats-grid" style="margin-bottom:2rem">
+        <div class="stat-card orange"><div class="stat-card-icon">📊</div><div class="stat-card-num">4.8%</div><div class="stat-card-label">Engagement Rate</div></div>
+        <div class="stat-card red"><div class="stat-card-icon">⏱</div><div class="stat-card-num">8m 42s</div><div class="stat-card-label">Avg. Session Time</div></div>
+        <div class="stat-card pink"><div class="stat-card-icon">📱</div><div class="stat-card-num">64%</div><div class="stat-card-label">Mobile Traffic</div></div>
+        <div class="stat-card green"><div class="stat-card-icon">🔄</div><div class="stat-card-num">34%</div><div class="stat-card-label">Return Users</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem;text-align:center;color:var(--text3)">
+        <div style="font-size:3rem;margin-bottom:1rem">📊</div>
+        <div style="font-weight:600;margin-bottom:0.5rem">Charts coming soon</div>
+        <div style="font-size:0.875rem">Connect your analytics service via <code style="background:var(--card2);padding:0.2rem 0.5rem;border-radius:6px">GET /analytics/overview</code></div>
+      </div>
+    `;
+  }
+}
+
+// ─────────────────────────────────────────
+//   POST RECIPE
+// ─────────────────────────────────────────
+let stepCount = 1;
+
+function addIngredient(){
+  const list = document.getElementById('ingredientsList');
+  if(!list) return;
+  const row = document.createElement('div');
+  row.className = 'ingredient-row';
+  row.innerHTML = `<input class="form-input" type="text" placeholder="Ingredient"/><input class="form-input" type="text" placeholder="Amount" style="max-width:120px"/><button class="remove-btn" onclick="removeRow(this)">✕</button>`;
+  list.appendChild(row);
+}
+
+function addStep(){
+  stepCount++;
+  const list = document.getElementById('stepsList');
+  if(!list) return;
+  const step = document.createElement('div');
+  step.className = 'step-item';
+  step.style.cssText = 'margin-bottom:1rem;flex-direction:column;gap:0.5rem';
+  step.innerHTML = `
+    <div style="display:flex;align-items:center;gap:0.75rem"><div class="step-num">${stepCount}</div><input class="form-input" type="text" placeholder="Step title"/></div>
+    <textarea class="form-input form-textarea" placeholder="Describe this step…" style="min-height:80px;margin-left:0"></textarea>
+    <button class="remove-btn" onclick="removeRow(this.parentElement)" style="align-self:flex-end">✕ Remove step</button>
+  `;
+  list.appendChild(step);
+}
+
+function removeRow(el){
+  if(el.parentElement) el.parentElement.removeChild(el);
+}
+
+function previewImage(input){
+  const preview = document.getElementById('imagePreview');
+  if(input.files&&input.files[0]&&preview){
+    const reader = new FileReader();
+    reader.onload = e=>{preview.src=e.target.result;preview.classList.remove('hide');};
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function saveDraft(){
+  showToast('Recipe saved as draft 💾','info');
+  // API: POST /recipes { ...data, status: 'draft' }
+}
+
+function publishRecipe(){
+  const title = document.getElementById('recipeTitle')?.value;
+  if(!title){showToast('Please add a recipe title','error');return;}
+  showToast('Recipe published! 🚀','success');
+  setTimeout(()=>showPage('home'),1000);
+  // API: POST /recipes { ...data, status: 'published' }
+}
+
+// ─────────────────────────────────────────
+//   AI CHATBOT
+// ─────────────────────────────────────────
+let aiOpen = false;
+
+function toggleAI(){
+  aiOpen = !aiOpen;
+  document.getElementById('aiModal').classList.toggle('hide', !aiOpen);
+}
+
+function sendAI(){
+  const input = document.getElementById('aiInput');
+  const q = input?.value?.trim();
+  if(!q) return;
+  askAI(q);
+  if(input) input.value='';
+}
+
+function askAI(q){
+  const msgs = document.getElementById('aiMessages');
+  if(!msgs) return;
+
+  // User message
+  msgs.innerHTML += `<div class="ai-msg user"><div class="ai-msg-bubble">${q}</div></div>`;
+
+  // Loading
+  msgs.innerHTML += `<div class="ai-msg" id="aiLoading"><div class="ai-msg-bubble"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div></div>`;
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Simulate API: POST /api/ai/chat { message: q }
+  setTimeout(()=>{
+    const loadEl = document.getElementById('aiLoading');
+    if(loadEl) loadEl.remove();
+
+    const responses = {
+      'tonight': 'Here are some great ideas for tonight! 🍽️\n\n1. **Creamy Pasta Carbonara** — Quick 25 min\n2. **Thai Basil Chicken** — Bold and flavorful\n3. **Margherita Pizza** — Family favorite\n\nWant a full recipe for any of these?',
+      'chicken': 'With chicken and pasta, I recommend:\n\n🍝 **Chicken Alfredo** — Creamy classic\n🍗 **Pasta Primavera with Chicken** — Light & fresh\n🌶️ **Spicy Arrabbiata with Grilled Chicken**\n\nShall I show you the full recipe for any of these?',
+      'quick': 'Here are 15-minute recipes! ⏱️\n\n• Avocado Toast (10 min)\n• Greek Salad (15 min)\n• Scrambled Eggs Deluxe (8 min)\n• Caprese Salad (5 min)',
+    };
+
+    let reply = 'Great question! 🤖 I\'d be happy to help with that. Based on your preferences, I recommend exploring our trending recipes section. Is there a specific cuisine or dietary requirement I should consider?';
+
+    for(const key in responses){
+      if(q.toLowerCase().includes(key)) reply = responses[key];
+    }
+
+    msgs.innerHTML += `<div class="ai-msg"><div class="ai-msg-bubble" style="white-space:pre-line">${reply}</div></div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+    if(!aiOpen) toggleAI();
+  }, 1200);
+}
+
+// ─────────────────────────────────────────
+//   SEARCH
+// ─────────────────────────────────────────
+function handleHeroSearch(q){
+  const sug = document.getElementById('heroSuggestions');
+  if(!sug) return;
+  if(!q.trim()){sug.classList.add('hide');return;}
+  const results = MOCK_RECIPES.filter(r=>r.title.toLowerCase().includes(q.toLowerCase())).slice(0,5);
+  if(!results.length){sug.classList.add('hide');return;}
+  sug.innerHTML = results.map(r=>`<div class="suggestion-item" onclick="openRecipe(${r.id})">🍳 ${r.title}<span style="margin-left:auto;font-size:0.75rem;color:var(--text3)">${r.cuisine}</span></div>`).join('');
+  sug.classList.remove('hide');
+}
+
+function doSearch(q){
+  document.getElementById('heroSuggestions')?.classList.add('hide');
+  if(!q.trim()) return;
+  showPage('discover');
+  setTimeout(()=>debounceSearch(q),100);
+}
+
+function toggleSearchModal(){
+  document.getElementById('searchModal')?.classList.toggle('hide');
+  document.getElementById('searchOverlay')?.classList.toggle('hide');
+  if(!document.getElementById('trendingSearches').innerHTML){
+    document.getElementById('trendingSearches').innerHTML = TRENDING_SEARCHES.map(s=>`<span class="filter-chip" onclick="searchFromModal('${s}')">${s}</span>`).join('');
+  }
+}
+
+function searchFromModal(q){
+  toggleSearchModal();
+  showPage('discover');
+  setTimeout(()=>debounceSearch(q),100);
+}
+
+function handleModalSearch(q){
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{
+    const results = MOCK_RECIPES.filter(r=>r.title.toLowerCase().includes(q.toLowerCase())||r.chef.toLowerCase().includes(q.toLowerCase()));
+    const el = document.getElementById('modalSearchResults');
+    if(!el) return;
+    el.innerHTML = q ? results.map(r=>`
+      <div class="suggestion-item" onclick="toggleSearchModal();openRecipe(${r.id})" style="padding:0.75rem;border-radius:12px;display:flex;gap:0.75rem;align-items:center">
+        <img src="${r.img}" style="width:48px;height:48px;border-radius:8px;object-fit:cover" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=100'"/>
+        <div><div style="font-size:0.875rem;font-weight:600">${r.title}</div><div style="font-size:0.75rem;color:var(--text3)">${r.chef} • ${r.cuisine}</div></div>
+      </div>
+    `).join('') : '';
+  },250);
+}
+
+// ─────────────────────────────────────────
+//   THEME
+// ─────────────────────────────────────────
+function toggleTheme(){
+  const isDark = document.documentElement.getAttribute('data-theme')==='dark';
+  const theme = isDark?'light':'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('recipez_theme', theme);
+  document.getElementById('themeBtn').textContent = theme==='dark'?'🌙':'☀️';
+}
+
+function loadTheme(){
+  const t = localStorage.getItem('recipez_theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  const btn = document.getElementById('themeBtn');
+  if(btn) btn.textContent = t==='dark'?'🌙':'☀️';
+}
+
+// ─────────────────────────────────────────
+//   TOAST NOTIFICATIONS
+// ─────────────────────────────────────────
+function showToast(msg, type='info'){
+  const icons = {success:'✅',error:'❌',info:'💡'};
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span class="toast-icon">${icons[type]||'💡'}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(()=>{toast.classList.add('toast-hide');setTimeout(()=>toast.remove(),300);},3000);
+}
+
+// ─────────────────────────────────────────
+//   UTILITIES
+// ─────────────────────────────────────────
+function scrollCarousel(id, dir){
+  const track = document.getElementById(id);
+  if(track) track.scrollLeft += dir * 350;
+}
+
+function toggleMobileNav(){
+  document.getElementById('mobileNav')?.classList.toggle('open');
+}
+
+function closeMobileNav(){
+  document.getElementById('mobileNav')?.classList.remove('open');
+}
+
+function toggleNotifPanel(){
+  document.getElementById('notifPanel')?.classList.toggle('hide');
+}
+
+// Close notif panel on outside click
+document.addEventListener('click', e=>{
+  const wrap = document.getElementById('notifWrap');
+  if(wrap && !wrap.contains(e.target)) document.getElementById('notifPanel')?.classList.add('hide');
+  const sug = document.getElementById('heroSuggestions');
+  if(sug && !sug.contains(e.target) && e.target.id!=='heroSearch') sug.classList.add('hide');
+});
+
+// ─────────────────────────────────────────
+//   INIT
+// ─────────────────────────────────────────
+(function init(){
+  loadTheme();
+  loadUser();
+  updateNavUI();
+  showPage('home');
+})();
+</script>
+</body>
+</html>
